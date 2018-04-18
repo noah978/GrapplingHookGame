@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrapplingHook", "GrapplingHook\GrapplingHook\GrapplingHook.csproj", "{CB3E0268-D04E-49D3-A0A8-A5C0FA905C37}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "GrapplingHookContent", "GrapplingHook\GrapplingHookContent\GrapplingHookContent.contentproj", "{BC829C87-5CE6-4A85-944A-00EFC668B855}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrapplingHookContent", "GrapplingHook\GrapplingHookContent\GrapplingHookContent.contentproj", "{BC829C87-5CE6-4A85-944A-00EFC668B855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
