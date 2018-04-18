@@ -47,6 +47,42 @@
       <HintPath>Libraries\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Audio\Music\" />
+    <Folder Include="Audio\Sounds\Characters\Boss\" />
+    <Folder Include="Audio\Sounds\Characters\Jess\" />
+    <Folder Include="Audio\Sounds\Characters\Matt\" />
+    <Folder Include="Audio\Sounds\Enemies\Bird\" />
+    <Folder Include="Audio\Sounds\Enemies\Mole\" />
+    <Folder Include="Audio\Sounds\Enemies\Worm\" />
+    <Folder Include="Audio\Sounds\Player\" />
+    <Folder Include="Textures\Characters\Boss\" />
+    <Folder Include="Textures\Characters\Jess\" />
+    <Folder Include="Textures\Characters\Matt\" />
+    <Folder Include="Textures\Enemies\Bird\" />
+    <Folder Include="Textures\Enemies\Mole\" />
+    <Folder Include="Textures\Enemies\Worm\" />
+    <Folder Include="Textures\Interface\HUD\" />
+    <Folder Include="Textures\Interface\Options Menu\" />
+    <Folder Include="Textures\Interface\Pause Menu\" />
+    <Folder Include="Textures\Interface\Title Screen\" />
+    <Folder Include="Textures\Particles\" />
+    <Folder Include="Textures\Tiles\Canyon\" />
+    <Folder Include="Textures\Tiles\Tower\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\test.dat">
+      <Name>test</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\NoGrapple.png">
+      <Name>NoGrapple</Name>
+    </Compile>
+    <Compile Include="Textures\Tiles\Solid.png">
+      <Name>Solid</Name>
+    </Compile>
+  </ItemGroup>
   <Import Project="Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

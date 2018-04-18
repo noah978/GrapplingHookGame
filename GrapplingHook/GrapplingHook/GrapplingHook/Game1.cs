@@ -9,99 +9,140 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using GrapplingHook.Logic;
+
 namespace GrapplingHook
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
+    enum GameState
+    {
+        Title,
+        Options,
+        Level,
+        Pause,
+        Cutscene,
+        Credits
+    }
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        //Constants
+        const int WINDOW_WIDTH = 640;
+        const int WINDOW_HEIGHT = 480;
+
+        //Logic
+        GameState state;
+        int? level;
+
+        //Graphics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D blankTex;
-        KeyboardState oldkb;
-        GamePadState oldgp;
-        Rectangle window;
+        Texture2D texPixel;
 
+        //Input
+        KeyboardState keyboard;
+        GamePadState gamepad;
+        
         public Game1()
         {
+            //Let's try not to add anything here
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 1000;
-            graphics.ApplyChanges();
         }
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            window = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+            graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+            graphics.ApplyChanges();
 
-            base.Initialize();
-        }
+            base.Initialize(); //Calls LoadContent
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
+            //Logic
+            state = GameState.Title;
+            level = null;
+
+            //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            blankTex = new Texture2D(GraphicsDevice, 1, 1);
-            blankTex.SetData(new[] { Color.White });
-        }
+            texPixel = new Texture2D(GraphicsDevice, 1, 1);
+            texPixel.SetData(new[] { Color.White });
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
+        }
+        
+        protected override void LoadContent()
+        {
+            //Let's try to only put file loading and actual Content.Load calls here
+            
+        }
+        
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState kb = Keyboard.GetState();
-            GamePadState gp = GamePad.GetState(PlayerIndex.One);
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kb.IsKeyDown(Keys.Escape))
+            keyboard = Keyboard.GetState();
+            gamepad = GamePad.GetState(PlayerIndex.One);
+
+            switch (state)
+            {
+                case GameState.Title:
+
+                    break;
+                case GameState.Options:
+
+                    break;
+                case GameState.Level:
+
+                    break;
+                case GameState.Pause:
+
+                    break;
+                case GameState.Cutscene:
+
+                    break;
+                case GameState.Credits:
+
+                    break;
+            }
+
+            if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
                 this.Exit();
+            
 
-            // TODO: Add your update logic here
-
-
-            oldkb = kb;
-            oldgp = gp;
             base.Update(gameTime);
         }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.AliceBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
+            
             spriteBatch.Begin();
 
+            switch (state)
+            {
+                case GameState.Title:
+
+                    break;
+                case GameState.Options:
+
+                    break;
+                case GameState.Level:
+
+                    break;
+                case GameState.Pause:
+
+                    break;
+                case GameState.Cutscene:
+
+                    break;
+                case GameState.Credits:
+
+                    break;
+            }
+
             spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
