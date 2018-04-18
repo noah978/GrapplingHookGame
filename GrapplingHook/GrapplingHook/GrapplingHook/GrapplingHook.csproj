@@ -47,19 +47,19 @@
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\Documents\Visual Studio 2015\Projects\GrapplingHookGame\GrapplingHook\GrapplingHook\GrapplingHook\Libraries\Microsoft.Xna.Framework.dll</HintPath>
+      <HintPath>Libraries\Microsoft.Xna.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\Documents\Visual Studio 2015\Projects\GrapplingHookGame\GrapplingHook\GrapplingHook\GrapplingHook\Libraries\Microsoft.Xna.Framework.Game.dll</HintPath>
+      <HintPath>Libraries\Microsoft.Xna.Framework.Game.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\Documents\Visual Studio 2015\Projects\GrapplingHookGame\GrapplingHook\GrapplingHook\GrapplingHook\Libraries\Microsoft.Xna.Framework.GamerServices.dll</HintPath>
+      <HintPath>Libraries\Microsoft.Xna.Framework.GamerServices.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\Documents\Visual Studio 2015\Projects\GrapplingHookGame\GrapplingHook\GrapplingHook\GrapplingHook\Libraries\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+      <HintPath>Libraries\Microsoft.Xna.Framework.Graphics.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
