@@ -32,6 +32,7 @@ namespace GrapplingHook
         //Logic
         GameState state;
         int? level;
+        Tile[] tilemap;
 
         //Graphics
         GraphicsDeviceManager graphics;
@@ -87,29 +88,27 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-
+                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
+                        this.Exit();
+                    
                     break;
                 case GameState.Options:
-
+                    
                     break;
                 case GameState.Level:
-
+                    
                     break;
                 case GameState.Pause:
-
+                    
                     break;
                 case GameState.Cutscene:
-
+                    
                     break;
                 case GameState.Credits:
-
+                    
                     break;
             }
-
-            if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
-                this.Exit();
             
-
             base.Update(gameTime);
         }
         
@@ -122,22 +121,38 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-
+                    DrawTiles();
+                    DrawCharacters();
                     break;
                 case GameState.Options:
-
+                    DrawSoundOptions();
                     break;
                 case GameState.Level:
-
+                    DrawTiles();
+                    DrawEnemies();
+                    DrawApples();
+                    DrawParticles();
+                    DrawPlayer();
                     break;
                 case GameState.Pause:
-
+                    DrawTiles();
+                    DrawEnemies();
+                    DrawApples();
+                    DrawParticles();
+                    DrawPlayer();
+                    DrawSoundOptions();
                     break;
                 case GameState.Cutscene:
-
+                    DrawTiles();
+                    DrawParticles();
+                    DrawCharacters();
+                    DrawLetterbox();
                     break;
                 case GameState.Credits:
-
+                    DrawTiles();
+                    DrawParticles();
+                    DrawCharacters();
+                    DrawLetterbox();
                     break;
             }
 
