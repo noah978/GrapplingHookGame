@@ -71,9 +71,10 @@
     <Folder Include="Textures\Tiles\Tower\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\test.dat">
+    <None Include="Levels\test.dat">
       <Name>test</Name>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Tiles\NoGrapple.png">

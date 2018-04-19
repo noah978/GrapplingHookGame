@@ -29,15 +29,27 @@ namespace GrapplingHook
         const int WINDOW_WIDTH = 640;
         const int WINDOW_HEIGHT = 480;
 
+        const int VIEWPORT_WIDTH = 320;
+        const int VIEWPORT_HEIGHT = 240;
+
+        const int LEVEL_WIDTH = 20;
+        const int LEVEL_HEIGHT = 15;
+
+        const int TILE_WIDTH = 16;
+        const int TILE_HEIGHT = 16;
+
         //Logic
         GameState state;
         int? level;
-        Tile[] tilemap;
+        int[,] tilemap;
 
         //Graphics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D texPixel;
+        Texture2D
+            texPixel,
+            texTileSolid,
+            texTileNoGrapple;
 
         //Input
         KeyboardState keyboard;
@@ -68,12 +80,22 @@ namespace GrapplingHook
             texPixel = new Texture2D(GraphicsDevice, 1, 1);
             texPixel.SetData(new[] { Color.White });
 
+            tilemap = new int[20, 15];
+            tilemap[3, 14] = 1;
+            tilemap[4, 14] = 1;
+            tilemap[5, 14] = 1;
+            tilemap[6, 14] = 1;
+            tilemap[7, 14] = 1;
+            tilemap[8, 14] = 2;
+            tilemap[9, 14] = 2;
+            tilemap[10, 14] = 2;
         }
         
         protected override void LoadContent()
         {
             //Let's try to only put file loading and actual Content.Load calls here
-            
+            texTileSolid = Content.Load<Texture2D>(@"Textures\Tiles\" + "Solid");
+            texTileNoGrapple = Content.Load<Texture2D>(@"Textures\Tiles\" + "NoGrapple");
         }
         
         protected override void UnloadContent()
@@ -114,45 +136,46 @@ namespace GrapplingHook
         
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-            
-            spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            var matrix = Matrix.CreateScale(2);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, matrix);
 
             switch (state)
             {
                 case GameState.Title:
                     DrawTiles();
-                    DrawCharacters();
+                    //DrawCharacters();
                     break;
                 case GameState.Options:
-                    DrawSoundOptions();
+                    //DrawSoundOptions();
                     break;
                 case GameState.Level:
                     DrawTiles();
-                    DrawEnemies();
-                    DrawApples();
-                    DrawParticles();
-                    DrawPlayer();
+                    //DrawEnemies();
+                    //DrawApples();
+                    //DrawParticles();
+                    //DrawPlayer();
                     break;
                 case GameState.Pause:
                     DrawTiles();
-                    DrawEnemies();
-                    DrawApples();
-                    DrawParticles();
-                    DrawPlayer();
-                    DrawSoundOptions();
+                    //DrawEnemies();
+                    //DrawApples();
+                    //DrawParticles();
+                    //DrawPlayer();
+                    //DrawSoundOptions();
                     break;
                 case GameState.Cutscene:
                     DrawTiles();
-                    DrawParticles();
-                    DrawCharacters();
-                    DrawLetterbox();
+                    //DrawParticles();
+                    //DrawCharacters();
+                    //DrawLetterbox();
                     break;
                 case GameState.Credits:
                     DrawTiles();
-                    DrawParticles();
-                    DrawCharacters();
-                    DrawLetterbox();
+                    //DrawParticles();
+                    //DrawCharacters();
+                    //DrawLetterbox();
                     break;
             }
 
@@ -160,5 +183,29 @@ namespace GrapplingHook
 
             base.Draw(gameTime);
         }
+
+        public void DrawTiles() {
+            for (var i = 0; i < LEVEL_WIDTH; i++) {
+                var position = new Vector2(i * TILE_WIDTH, 0);
+                for (var j = 0; j < LEVEL_HEIGHT; j++) {
+                    position.Y = j * TILE_HEIGHT;
+                    Texture2D texture = null;
+
+                    switch ((Tile)tilemap[i, j]) {
+                        case Tile.Solid:
+                            texture = texTileSolid;
+                            break;
+                        case Tile.NoGrapple:
+                            texture = texTileNoGrapple;
+                            break;
+                    }
+                    if (texture != null)
+                        spriteBatch.Draw(texture, position, Color.White);
+                }
+            }
+        }
+
+
+
     }
 }
