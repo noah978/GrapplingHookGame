@@ -84,6 +84,13 @@
       <Name>Solid</Name>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Player.png">
+      <Name>Player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,10 +5,11 @@ using System.Text;
 
 namespace GrapplingHook.Logic
 {
-    enum Tile
+    public enum Tile
     {
         Empty,
         Solid,
-        NoGrapple
+        NoGrapple,
+        Spawnpoint
     }
 }
