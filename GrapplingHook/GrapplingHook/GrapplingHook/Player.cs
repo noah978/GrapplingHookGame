@@ -32,19 +32,39 @@ namespace GrapplingHook {
             }
 
             {
-                var tempPos = player.position;
+                List<Point> tileCoordsToCheck = new List<Point>();
 
-                player.position += player.velocity;
+                var moddedX = player.position.X % 16;
+                var playerTileX = (int)(moddedX / 16);
+                var isAlignedX = moddedX == 0;
 
-                foreach (Hitbox box in tileBounds) {
-                    if (player.Intersects(box)) {
+                var moddedY = player.position.Y % 16;
+                var playerTileY = (int)(moddedY / 16);
+                var isAlignedY = moddedY == 0;
 
-                        if (player.velocity.X > 0) {
 
+                if (isAlignedY)
+                {
+                    if (player.velocity.Y >= 0) {
+                        tileCoordsToCheck.Add(new Point(playerTileX, playerTileY + 1));
+                        if (!isAlignedX)
+                        {
+                            tileCoordsToCheck.Add(new Point(playerTileX + 1, playerTileY + 1));
                         }
-
                     }
+                    if (player.velocity.Y < 0)
+                    {
+
+                        tileCoordsToCheck.Add(new Point(playerTileX, playerTileY - 1));
+                        if (isAlignedX)
+                        {
+                            tileCoordsToCheck.Add(new Point(playerTileX + 1, playerTileY - 1));
+                        }
+                    }
+                } else {
+
                 }
+                
             }
             
         }
