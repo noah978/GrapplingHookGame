@@ -12,9 +12,7 @@ namespace GrapplingHook {
         Texture2D texPlayer;
         Mobile player;
         PlayerState playerState;
-
-
-
+        
         public void UpdatePlayer() {
             player.velocity.X = MathHelper.Clamp(
                 player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.Right) ? 1 : 0) - (keyboard.IsKeyDown(Keys.Left) ? 1 : 0)),
@@ -52,7 +50,6 @@ namespace GrapplingHook {
         }
 
         public void DrawPlayer() {
-
             spriteBatch.Draw(texPlayer, player.position, Color.White);
         }
 

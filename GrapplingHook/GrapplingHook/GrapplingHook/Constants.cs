@@ -19,7 +19,7 @@ namespace GrapplingHook {
         const int TILE_HEIGHT = 16;
 
         const float PLAYER_ACCELERATION = .3f;
-        const float PLAYER_GRAVITY = .2f;
+        const float GRAVITY = .2f;
         const float PLAYER_FRICTION_GROUND = .2f;
     }
 }
