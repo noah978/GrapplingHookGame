@@ -109,7 +109,7 @@ namespace GrapplingHook
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             var matrix = Matrix.CreateScale(2);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, matrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, matrix);
 
             switch (state)
             {

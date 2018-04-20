@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace GrapplingHook.Logic {
-    class Mobile : AABB {
+    class Mobile : Hitbox {
         public Vector2 velocity;
         
         public Mobile (float xpos, float ypos, float xvel, float yvel, float xbnd, float ybnd) : base(xpos, ypos, xbnd, ybnd) {

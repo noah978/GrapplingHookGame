@@ -15,7 +15,7 @@ namespace GrapplingHook {
 
         int? level;
         Tile[,] tilemap;
-        List<AABB> tileBounds;
+        List<Hitbox> tileBounds;
 
         StreamReader file;
         
@@ -24,7 +24,7 @@ namespace GrapplingHook {
             Tile[,] result = new Tile[LEVEL_WIDTH, LEVEL_HEIGHT];
 
             if (tileBounds == null)
-                tileBounds = new List<AABB>();
+                tileBounds = new List<Hitbox>();
 
             for (var j = 0; j < LEVEL_HEIGHT; j++) {
                 var line = file.ReadLine();
@@ -36,7 +36,7 @@ namespace GrapplingHook {
                         case Tile.Solid:
                         case Tile.NoGrapple:
                             
-                            tileBounds.Add(new AABB(i * 16, j * 16, 16, 16));
+                            tileBounds.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                         case Tile.Spawnpoint:
                             if (player == null)

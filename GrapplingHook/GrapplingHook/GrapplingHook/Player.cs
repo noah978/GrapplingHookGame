@@ -28,7 +28,7 @@ namespace GrapplingHook {
                     player.velocity.X = 0;
                 }
             } else {
-                player.velocity.Y += PLAYER_GRAVITY;
+                player.velocity.Y += GRAVITY;
             }
 
             {
@@ -36,7 +36,7 @@ namespace GrapplingHook {
 
                 player.position += player.velocity;
 
-                foreach (AABB box in tileBounds) {
+                foreach (Hitbox box in tileBounds) {
                     if (player.Intersects(box)) {
 
                         if (player.velocity.X > 0) {
