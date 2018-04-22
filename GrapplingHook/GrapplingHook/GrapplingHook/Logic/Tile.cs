@@ -8,8 +8,14 @@ namespace GrapplingHook.Logic
     public enum Tile
     {
         Empty,
+        Spawnpoint,
+        Goal,
         Solid,
         NoGrapple,
-        Spawnpoint
+        Spike,
+        WindRight,
+        WindUp,
+        WindLeft,
+        WindDown
     }
 }
