@@ -12,60 +12,131 @@ namespace GrapplingHook {
         Texture2D texPlayer;
         Mobile player;
         PlayerState playerState;
-        
+
+
+        List<Hitbox> collisionsSolid;
+
+        public void InitializePlayer(float x, float y) {
+            player = new Mobile(x, y, 0, 0, 16, 16);
+            playerState = PlayerState.OnGround;
+            collisionsSolid = new List<Hitbox>();
+        }
+
         public void UpdatePlayer() {
             player.velocity.X = MathHelper.Clamp(
                 player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.Right) ? 1 : 0) - (keyboard.IsKeyDown(Keys.Left) ? 1 : 0)),
-                -3,
-                3);
-            //Apply friction
-
+                -PLAYER_MAX_SPEED_X,
+                PLAYER_MAX_SPEED_X);
+            
             if (playerState == PlayerState.OnGround) {
+                //Friction
                 if (player.velocity.X < -PLAYER_FRICTION_GROUND || player.velocity.X > PLAYER_FRICTION_GROUND) {
                     player.velocity.X = player.velocity.X - PLAYER_FRICTION_GROUND * Math.Sign(player.velocity.X);
                 }
                 else {
                     player.velocity.X = 0;
                 }
-            } else {
-                player.velocity.Y += GRAVITY;
-            }
-
-            {
-                List<Point> tileCoordsToCheck = new List<Point>();
-
-                var moddedX = player.position.X % 16;
-                var playerTileX = (int)(moddedX / 16);
-                var isAlignedX = moddedX == 0;
-
-                var moddedY = player.position.Y % 16;
-                var playerTileY = (int)(moddedY / 16);
-                var isAlignedY = moddedY == 0;
-
-
-                if (isAlignedY)
-                {
-                    if (player.velocity.Y >= 0) {
-                        tileCoordsToCheck.Add(new Point(playerTileX, playerTileY + 1));
-                        if (!isAlignedX)
-                        {
-                            tileCoordsToCheck.Add(new Point(playerTileX + 1, playerTileY + 1));
-                        }
-                    }
-                    if (player.velocity.Y < 0)
-                    {
-
-                        tileCoordsToCheck.Add(new Point(playerTileX, playerTileY - 1));
-                        if (isAlignedX)
-                        {
-                            tileCoordsToCheck.Add(new Point(playerTileX + 1, playerTileY - 1));
-                        }
-                    }
-                } else {
-
+                //Jumping
+                if (keyboard.IsKeyDown(Keys.Up) && keyboardOld.IsKeyUp(Keys.Up)) {
+                    player.velocity.Y = PLAYER_JUMP;
+                    playerState = PlayerState.InAir;
                 }
-                
+            } else if (playerState == PlayerState.InAir) {
+                //Friction
+                if (player.velocity.X < -PLAYER_FRICTION_AIR || player.velocity.X > PLAYER_FRICTION_AIR) {
+                    player.velocity.X = player.velocity.X - PLAYER_FRICTION_AIR * Math.Sign(player.velocity.X);
+                }
+                else {
+                    player.velocity.X = 0;
+                }
             }
+
+            //Gravity
+            player.velocity.Y += GRAVITY;
+
+            //Collision with wind tiles
+            var windRight = false;
+            for (int i = 0; i < TilesWindRight.Count; i++) {
+                var tile = TilesWindRight[i];
+                if (player.Intersects(tile)) {
+                    windRight = true;
+                    break;
+                }
+            }
+            var windLeft = false;
+            for (int i = 0; i < TilesWindLeft.Count; i++) {
+                var tile = TilesWindLeft[i];
+                if (player.Intersects(tile)) {
+                    windLeft = true;
+                    break;
+                }
+            }
+            var windDown = false;
+            for (int i = 0; i < TilesWindDown.Count; i++) {
+                var tile = TilesWindDown[i];
+                if (player.Intersects(tile)) {
+                    windDown = true;
+                    break;
+                }
+            }
+            var windUp = false;
+            for (int i = 0; i < TilesWindUp.Count; i++) {
+                var tile = TilesWindUp[i];
+                if (player.Intersects(tile)) {
+                    windUp = true;
+                    break;
+                }
+            }
+
+            player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
+            player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
+
+
+            //Collision with solid tiles
+            for (int i = 0; i < TilesSolid.Count; i++) {
+                var tile = TilesSolid[i];
+                if (player.WillIntersect(tile)) {
+                    var oldVelX = player.velocity.X;
+                    player.velocity.X = 0;
+                    if (player.velocity.Y > 0) {
+                        if (player.WillIntersect(tile)) {
+                            player.position.Y = tile.Up - player.bounds.Y;
+                            player.velocity.Y = 0;
+                            playerState = PlayerState.OnGround;
+                        }
+                    }
+                    else if (player.velocity.Y < 0) {
+                        if (player.WillIntersect(tile)) {
+                            player.position.Y = tile.Down;
+                            player.velocity.Y = 0;
+                        }
+                    }
+                    player.velocity.X = oldVelX;
+                    var oldVelY = player.velocity.Y;
+                    player.velocity.Y = 0;
+                    if (player.velocity.X > 0) {
+                        if (player.WillIntersect(tile)) {
+                            player.position.X = tile.Left - player.bounds.X;
+                            player.velocity.X = 0;
+                        }
+                    }
+                    else if (player.velocity.X < 0) {
+                        if (player.WillIntersect(tile)) {
+                            player.position.X = tile.Right;
+                            player.velocity.X = 0;
+                        }
+                    }
+                    player.velocity.Y = oldVelY;
+                }
+            }
+
+            if (playerState == PlayerState.OnGround) {
+                if (player.velocity.Y != 0) {
+                    playerState = PlayerState.InAir;
+                }
+            }
+            
+            player.position += player.velocity;
             
         }
 

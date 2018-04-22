@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -27,8 +28,10 @@ namespace GrapplingHook
 
         //Input
         KeyboardState keyboard;
+        KeyboardState keyboardOld;
         GamePadState gamepad;
-        
+        GamePadState gamepadOld;
+
         public Game()
         {
             //Let's try not to add anything here
@@ -46,18 +49,27 @@ namespace GrapplingHook
 
             //Logic
             state = GameState.Level;
-            level = null;
+            level = 0;
 
             //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             texPixel = new Texture2D(GraphicsDevice, 1, 1);
             texPixel.SetData(new[] { Color.White });
+            
+            levelNames = Directory.GetFiles(Content.RootDirectory + @"\Levels\");
+            Array.Sort(levelNames);
 
-            tilemap = LoadLevel("test");
+            TilesSolid = new List<Hitbox>();
+            TilesSpike = new List<Hitbox>();
+            TilesWindRight = new List<Hitbox>();
+            TilesWindUp = new List<Hitbox>();
+            TilesWindLeft = new List<Hitbox>();
+            TilesWindDown = new List<Hitbox>();
 
             IsMouseVisible = true;
-            
+
+            ChangeLevel(level);
         }
         
         protected override void LoadContent()
@@ -65,17 +77,23 @@ namespace GrapplingHook
             //Let's try to only put file loading and actual Content.Load calls here
             texTileSolid = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Solid");
             texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
+            texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
+            texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
             texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
         }
         
-        protected override void UnloadContent()
-        {
-        }
+        protected override void UnloadContent() {}
         
         protected override void Update(GameTime gameTime)
         {
+            keyboardOld = keyboard;
+            gamepadOld = gamepad;
             keyboard = Keyboard.GetState();
             gamepad = GamePad.GetState(PlayerIndex.One);
+
+            if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod)) {
+                ChangeLevel(++level);
+            }
 
             switch (state)
             {

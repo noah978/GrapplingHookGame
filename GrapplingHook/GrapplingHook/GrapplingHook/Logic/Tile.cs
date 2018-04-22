@@ -13,6 +13,9 @@ namespace GrapplingHook.Logic
         Solid,
         NoGrapple,
         Spike,
-        Wind
+        WindRight,
+        WindUp,
+        WindLeft,
+        WindDown
     }
 }
