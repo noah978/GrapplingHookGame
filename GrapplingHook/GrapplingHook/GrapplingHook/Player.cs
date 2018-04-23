@@ -12,8 +12,6 @@ namespace GrapplingHook {
         Texture2D texPlayer;
         Mobile player;
         PlayerState playerState;
-        Vector2 preTensionVelocity;
-
 
         List<Hitbox> collisionsSolid;
 
@@ -57,7 +55,6 @@ namespace GrapplingHook {
             player.velocity.Y += GRAVITY;
 
             //Grappling hook tension
-            preTensionVelocity = player.velocity;
             if (hookState == HookState.Hooked)
             {
                 Vector2 oldNextPosition = player.Center + player.velocity;
@@ -180,8 +177,6 @@ namespace GrapplingHook {
 
         public void DrawPlayer() {
             spriteBatch.Draw(texPlayer, player.position, Color.White);
-            DrawLine(player.position, (player.position + player.velocity * 50), Color.White);
-            DrawLine(player.position, (player.position + preTensionVelocity * 50), Color.Green);
         }
 
     }

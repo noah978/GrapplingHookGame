@@ -29,6 +29,5 @@ namespace GrapplingHook {
 
         const float HOOK_SPEED = 10f;
         const float HOOK_MAX_LENGTH = 192f;
-        const float HOOK_ROPE_TENSION = 1f;
     }
 }

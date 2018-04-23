@@ -51,7 +51,7 @@ namespace GrapplingHook
 
             //Logic
             state = GameState.Level;
-            level = 1;
+            level = 0;
 
             //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
