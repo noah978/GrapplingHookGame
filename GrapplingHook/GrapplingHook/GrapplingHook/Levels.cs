@@ -9,8 +9,12 @@ using GrapplingHook.Logic;
 
 namespace GrapplingHook {
     public partial class Game {
+        const string TileLetters = "-PGWNOSRDLUMB";
+
         Texture2D
-            texTileSolid,
+            texTileGoal,
+            texTileWall,
+            texTileOneWayPlatform,
             texTileNoGrapple,
             texTileSpike,
             texTileWind;
@@ -21,12 +25,14 @@ namespace GrapplingHook {
 
         StreamReader file;
 
-        List<Hitbox> TilesSolid;
-        List<Hitbox> TilesSpike;
-        List<Hitbox> TilesWindRight;
-        List<Hitbox> TilesWindUp;
-        List<Hitbox> TilesWindLeft;
-        List<Hitbox> TilesWindDown;
+        List<Hitbox>
+            TilesSolid,
+            TilesSpike,
+            TilesOneWayPlatform,
+            TilesRightWind,
+            TilesUpWind,
+            TilesLeftWind,
+            TilesDownWind;
 
         Hitbox goal;
         
@@ -42,7 +48,7 @@ namespace GrapplingHook {
             for (var j = 0; j < LEVEL_HEIGHT; j++) {
                 var line = file.ReadLine();
                 for (var i = 0; i < LEVEL_WIDTH; i++)
-                    result[i, j] = (Tile)Char.GetNumericValue(line[i]);
+                    result[i, j] = (Tile)TileLetters.IndexOf(line[i]);
             }
             file.Close();
             return result;
@@ -52,32 +58,35 @@ namespace GrapplingHook {
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
                     switch (tilemap[i, j]) {
-                        case Tile.Spawnpoint:
+                        case Tile.Player:
                             InitializePlayer(i * 16, j * 16);
                             break;
                         case Tile.Goal:
-                            goal = new Mobile(i * 16, j * 16, 0, 0, 16, 16);
+                            goal = new Hitbox(i * 16, j * 16, 16, 16);
                             break;
-                        case Tile.Solid:
-                            TilesSolid.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                        case Tile.Wall:
+                            TilesSolid.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                         case Tile.NoGrapple:
-                            TilesSolid.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                            TilesSolid.Add(new Hitbox(i * 16, j * 16, 16, 16));
+                            break;
+                        case Tile.OneWayPlatform:
+                            TilesOneWayPlatform.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                         case Tile.Spike:
-                            TilesSpike.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                            TilesSpike.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
-                        case Tile.WindRight:
-                            TilesWindRight.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                        case Tile.RightWind:
+                            TilesRightWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
-                        case Tile.WindUp:
-                            TilesWindUp.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                        case Tile.DownWind:
+                            TilesDownWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
-                        case Tile.WindLeft:
-                            TilesWindLeft.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                        case Tile.LeftWind:
+                            TilesLeftWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
-                        case Tile.WindDown:
-                            TilesWindDown.Add(new Mobile(i * 16, j * 16, 0, 0, 16, 16));
+                        case Tile.UpWind:
+                            TilesUpWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                     }
         }
@@ -94,33 +103,39 @@ namespace GrapplingHook {
                     float rotation = 0;
 
                     switch (tilemap[i, j]) {
-                        case Tile.Solid:
-                            texture = texTileSolid;
+                        case Tile.Goal:
+                            texture = texTileGoal;
+                            break;
+                        case Tile.Wall:
+                            texture = texTileWall;
                             break;
                         case Tile.NoGrapple:
                             texture = texTileNoGrapple;
                             break;
+                        case Tile.OneWayPlatform:
+                            texture = texTileOneWayPlatform;
+                            break;
                         case Tile.Spike:
                             texture = texTileSpike;
                             break;
-                        case Tile.WindRight:
+                        case Tile.RightWind:
                             texture = texTileWind;
                             break;
-                        case Tile.WindUp:
-                            origin.X = 16;
+                        case Tile.DownWind:
+                            origin.Y = 16;
                             texture = texTileWind;
-                            rotation = MathHelper.Pi + MathHelper.PiOver2;
+                            rotation = MathHelper.PiOver2;
                             break;
-                        case Tile.WindLeft:
+                        case Tile.LeftWind:
                             origin.X = 16;
                             origin.Y = 16;
                             texture = texTileWind;
                             rotation = MathHelper.Pi;
                             break;
-                        case Tile.WindDown:
-                            origin.Y = 16;
+                        case Tile.UpWind:
+                            origin.X = 16;
                             texture = texTileWind;
-                            rotation = MathHelper.PiOver2;
+                            rotation = MathHelper.Pi + MathHelper.PiOver2;
                             break;
                     }
                     if (texture != null)

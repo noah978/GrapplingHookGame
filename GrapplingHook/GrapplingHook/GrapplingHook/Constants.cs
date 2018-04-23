@@ -18,12 +18,12 @@ namespace GrapplingHook {
         const int TILE_WIDTH = 16;
         const int TILE_HEIGHT = 16;
 
-        const float WIND_STRENGTH = .5f;
+        const float WIND_STRENGTH = .4f;
 
         const float PLAYER_ACCELERATION = .35f;
         const float GRAVITY = .2f;
-        const float PLAYER_FRICTION_GROUND = .15f;
-        const float PLAYER_FRICTION_AIR = .1f;
+        const float PLAYER_FRICTION_GROUND = .25f;
+        const float PLAYER_FRICTION_AIR = .05f;
         const float PLAYER_JUMP = -4.5f;
         const float PLAYER_MAX_SPEED_X = 2.5f;
     }

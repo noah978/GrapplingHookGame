@@ -61,11 +61,12 @@ namespace GrapplingHook
             Array.Sort(levelNames);
 
             TilesSolid = new List<Hitbox>();
+            TilesOneWayPlatform = new List<Hitbox>();
             TilesSpike = new List<Hitbox>();
-            TilesWindRight = new List<Hitbox>();
-            TilesWindUp = new List<Hitbox>();
-            TilesWindLeft = new List<Hitbox>();
-            TilesWindDown = new List<Hitbox>();
+            TilesRightWind = new List<Hitbox>();
+            TilesUpWind = new List<Hitbox>();
+            TilesLeftWind = new List<Hitbox>();
+            TilesDownWind = new List<Hitbox>();
 
             IsMouseVisible = true;
 
@@ -75,11 +76,13 @@ namespace GrapplingHook
         protected override void LoadContent()
         {
             //Let's try to only put file loading and actual Content.Load calls here
-            texTileSolid = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Solid");
+            texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
+            texTileGoal = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Goal");
+            texTileWall = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wall");
+            texTileOneWayPlatform = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "OneWayPlatform");
             texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
             texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
             texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
-            texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
         }
         
         protected override void UnloadContent() {}

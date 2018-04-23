@@ -80,8 +80,8 @@
     <Compile Include="Textures\Tiles\NoGrapple.png">
       <Name>NoGrapple</Name>
     </Compile>
-    <Compile Include="Textures\Tiles\Solid.png">
-      <Name>Solid</Name>
+    <Compile Include="Textures\Tiles\Wall.png">
+      <Name>Wall</Name>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +101,32 @@
   <ItemGroup>
     <Compile Include="Textures\Tiles\Spike.png">
       <Name>Spike</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Bird.png">
+      <Name>Bird</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Mole.png">
+      <Name>Mole</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Goal.png">
+      <Name>Goal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\OneWayPlatform.png">
+      <Name>OneWayPlatform</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
