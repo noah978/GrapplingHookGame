@@ -17,7 +17,7 @@ namespace GrapplingHook {
         List<Hitbox> collisionsSolid;
 
         public void InitializePlayer(float x, float y) {
-            player = new Mobile(x, y, 0, 0, 16, 16);
+            player = new Mobile(x + 2, y + 2, 0, 0, 12, 12);
             playerState = PlayerState.OnGround;
             collisionsSolid = new List<Hitbox>();
         }
@@ -56,32 +56,32 @@ namespace GrapplingHook {
 
             //Collision with wind tiles
             var windRight = false;
-            for (int i = 0; i < TilesWindRight.Count; i++) {
-                var tile = TilesWindRight[i];
+            for (int i = 0; i < TilesRightWind.Count; i++) {
+                var tile = TilesRightWind[i];
                 if (player.Intersects(tile)) {
                     windRight = true;
                     break;
                 }
             }
             var windLeft = false;
-            for (int i = 0; i < TilesWindLeft.Count; i++) {
-                var tile = TilesWindLeft[i];
+            for (int i = 0; i < TilesLeftWind.Count; i++) {
+                var tile = TilesLeftWind[i];
                 if (player.Intersects(tile)) {
                     windLeft = true;
                     break;
                 }
             }
             var windDown = false;
-            for (int i = 0; i < TilesWindDown.Count; i++) {
-                var tile = TilesWindDown[i];
+            for (int i = 0; i < TilesDownWind.Count; i++) {
+                var tile = TilesDownWind[i];
                 if (player.Intersects(tile)) {
                     windDown = true;
                     break;
                 }
             }
             var windUp = false;
-            for (int i = 0; i < TilesWindUp.Count; i++) {
-                var tile = TilesWindUp[i];
+            for (int i = 0; i < TilesUpWind.Count; i++) {
+                var tile = TilesUpWind[i];
                 if (player.Intersects(tile)) {
                     windUp = true;
                     break;
@@ -127,6 +127,23 @@ namespace GrapplingHook {
                         }
                     }
                     player.velocity.Y = oldVelY;
+                }
+            }
+
+            //Collision with one-way platforms
+            for (int i = 0; i < TilesOneWayPlatform.Count; i++) {
+                var tile = TilesOneWayPlatform[i];
+                if (player.WillIntersect(tile)) {
+                    var oldVelX = player.velocity.X;
+                    player.velocity.X = 0;
+                    if (player.velocity.Y > 0 && player.Down <= tile.Up) {
+                        if (player.WillIntersect(tile)) {
+                            player.position.Y = tile.Up - player.bounds.Y;
+                            player.velocity.Y = 0;
+                            playerState = PlayerState.OnGround;
+                        }
+                    }
+                    player.velocity.X = oldVelX;
                 }
             }
 

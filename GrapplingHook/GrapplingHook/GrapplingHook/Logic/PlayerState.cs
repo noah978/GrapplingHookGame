@@ -7,6 +7,7 @@ namespace GrapplingHook.Logic {
     public enum PlayerState {
         OnGround,
         InAir,
-        GrappleOut
+        GrappleOut,
+        Dead
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Logic\Mobile.cs" />
     <Compile Include="Logic\PlayerState.cs" />
     <Compile Include="Logic\Tile.cs" />
+    <Compile Include="Mole.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
