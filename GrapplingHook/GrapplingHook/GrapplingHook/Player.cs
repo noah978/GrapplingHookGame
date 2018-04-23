@@ -12,6 +12,7 @@ namespace GrapplingHook {
         Texture2D texPlayer;
         Mobile player;
         PlayerState playerState;
+        Vector2 preTensionVelocity;
 
 
         List<Hitbox> collisionsSolid;
@@ -20,6 +21,7 @@ namespace GrapplingHook {
             player = new Mobile(x + 2, y + 2, 0, 0, 12, 12);
             playerState = PlayerState.OnGround;
             collisionsSolid = new List<Hitbox>();
+            initializeHook();
         }
 
         public void UpdatePlayer() {
@@ -53,6 +55,26 @@ namespace GrapplingHook {
 
             //Gravity
             player.velocity.Y += GRAVITY;
+
+            //Grappling hook tension
+            preTensionVelocity = player.velocity;
+            if (hookState == HookState.Hooked)
+            {
+                Vector2 oldNextPosition = player.Center + player.velocity;
+                Vector2 newNextPositionRelative = oldNextPosition - hook.Center;
+                if (newNextPositionRelative.Length() >= ropeLength)
+                {
+                    newNextPositionRelative.Normalize();
+                    newNextPositionRelative.X *= (float)ropeLength;
+                    newNextPositionRelative.Y *= (float)ropeLength;
+                    Vector2 newNextPosition = hook.Center + newNextPositionRelative;
+                    float velocityMagnitude = player.velocity.Length();
+                    player.velocity = newNextPosition - player.Center;
+                    player.velocity.Normalize();
+                    player.velocity *= velocityMagnitude;
+                }
+                //Something's wrong here. It's not behaving correctly when swinging idly
+            }
 
             //Collision with wind tiles
             var windRight = false;
@@ -90,7 +112,6 @@ namespace GrapplingHook {
 
             player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
             player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
-
 
             //Collision with solid tiles
             for (int i = 0; i < TilesSolid.Count; i++) {
@@ -159,6 +180,8 @@ namespace GrapplingHook {
 
         public void DrawPlayer() {
             spriteBatch.Draw(texPlayer, player.position, Color.White);
+            DrawLine(player.position, (player.position + player.velocity * 50), Color.White);
+            DrawLine(player.position, (player.position + preTensionVelocity * 50), Color.Green);
         }
 
     }

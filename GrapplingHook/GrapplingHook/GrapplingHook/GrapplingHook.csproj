@@ -70,9 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Hook.cs" />
     <Compile Include="Levels.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Hitbox.cs" />
+    <Compile Include="Logic\HookState.cs" />
     <Compile Include="Logic\Mobile.cs" />
     <Compile Include="Logic\PlayerState.cs" />
     <Compile Include="Logic\Tile.cs" />
