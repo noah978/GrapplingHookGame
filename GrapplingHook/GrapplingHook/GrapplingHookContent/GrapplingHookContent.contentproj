@@ -76,6 +76,10 @@
       <Name>00</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\test2.dat">
+      <Name>test2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Tiles\NoGrapple.png">
@@ -128,6 +132,13 @@
   <ItemGroup>
     <Compile Include="Textures\Tiles\OneWayPlatform.png">
       <Name>OneWayPlatform</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Hook.png">
+      <Name>Hook</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
