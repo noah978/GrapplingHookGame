@@ -18,6 +18,7 @@ namespace GrapplingHook.Logic
         DownWind,
         LeftWind,
         UpWind,
+        Apple,
         Mole,
         Bird
     }
