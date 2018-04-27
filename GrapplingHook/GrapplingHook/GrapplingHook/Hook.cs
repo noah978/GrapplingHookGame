@@ -25,7 +25,7 @@ namespace GrapplingHook
 
         public void UpdateHook()
         {
-            //Deactivate jook of it's too far from the player
+            //Deactivate hook of it's too far from the player
             if (hookState == HookState.Thrown)
             {
                 if(Distance(player.Center.X, player.Center.Y, hook.Center.X, hook.Center.Y) > HOOK_MAX_LENGTH)
@@ -34,7 +34,7 @@ namespace GrapplingHook
                     hookState = HookState.Inactive;
                 }
             }
-            //Deactivate jook of the player jumps or right-click is pressed
+            //Deactivate hook of the player jumps or right-click is pressed
             if (hookState == HookState.Hooked)
             {
                 if ((keyboard.IsKeyDown(Keys.Up) && keyboardOld.IsKeyUp(Keys.Up)) || 
