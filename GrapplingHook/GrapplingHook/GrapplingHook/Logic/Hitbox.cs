@@ -13,6 +13,8 @@ namespace GrapplingHook.Logic {
         public float Up { get { return position.Y; } }
         public float Right { get { return position.X + bounds.X; } }
         public float Down { get { return position.Y + bounds.Y; } }
+
+        public Vector2 Center { get { return new Vector2(position.X + bounds.X / 2, position.Y + bounds.Y / 2); } }
         
 
         public Hitbox(float xpos, float ypos, float xbnd, float ybnd) {

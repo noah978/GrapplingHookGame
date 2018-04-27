@@ -31,6 +31,8 @@ namespace GrapplingHook
         KeyboardState keyboardOld;
         GamePadState gamepad;
         GamePadState gamepadOld;
+        MouseState mouse;
+        MouseState mouseOld;
 
         public Game()
         {
@@ -88,7 +90,7 @@ namespace GrapplingHook
             texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
             texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
             texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
-
+            texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
@@ -100,8 +102,10 @@ namespace GrapplingHook
         {
             keyboardOld = keyboard;
             gamepadOld = gamepad;
+            mouseOld = mouse;
             keyboard = Keyboard.GetState();
             gamepad = GamePad.GetState(PlayerIndex.One);
+            mouse = Mouse.GetState();
 
             if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod)) {
                 level = (level + 1) % levelNames.Length;
@@ -124,6 +128,7 @@ namespace GrapplingHook
                     break;
                 case GameState.Level:
                     UpdatePlayer();
+                    UpdateHook();
                     UpdateEnemies();
                     break;
                 case GameState.Pause:
@@ -162,6 +167,7 @@ namespace GrapplingHook
                     DrawApples();
                     //DrawParticles();
                     DrawPlayer();
+                    DrawHook();
                     break;
                 case GameState.Pause:
                     DrawTiles();
@@ -190,10 +196,20 @@ namespace GrapplingHook
             base.Draw(gameTime);
         }
 
+        public void DrawLine(Vector2 begin, Vector2 end, Color color, int width = 1)
+        {
+            Rectangle r = new Rectangle((int)begin.X, (int)begin.Y, (int)(end - begin).Length() + width, width);
+            Vector2 v = Vector2.Normalize(begin - end);
+            float angle = (float)Math.Acos(Vector2.Dot(v, -Vector2.UnitX));
+            if (begin.Y > end.Y) angle = MathHelper.TwoPi - angle;
+            spriteBatch.Draw(texPixel, r, null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
+        }
+
         public void UpdateEnemies() {
             UpdateMoles();
             UpdateBirds();
         }
+
         public void DrawEnemies() {
             DrawMoles();
             DrawBirds();
