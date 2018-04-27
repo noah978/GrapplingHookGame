@@ -90,14 +90,10 @@ namespace GrapplingHook
             texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
             texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
             texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
-<<<<<<< HEAD
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
-=======
-
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
->>>>>>> master
         }
         
         protected override void UnloadContent() {}
@@ -132,11 +128,8 @@ namespace GrapplingHook
                     break;
                 case GameState.Level:
                     UpdatePlayer();
-<<<<<<< HEAD
                     UpdateHook();
-=======
                     UpdateEnemies();
->>>>>>> master
                     break;
                 case GameState.Pause:
                     
@@ -203,7 +196,6 @@ namespace GrapplingHook
             base.Draw(gameTime);
         }
 
-<<<<<<< HEAD
         public void DrawLine(Vector2 begin, Vector2 end, Color color, int width = 1)
         {
             Rectangle r = new Rectangle((int)begin.X, (int)begin.Y, (int)(end - begin).Length() + width, width);
@@ -211,15 +203,16 @@ namespace GrapplingHook
             float angle = (float)Math.Acos(Vector2.Dot(v, -Vector2.UnitX));
             if (begin.Y > end.Y) angle = MathHelper.TwoPi - angle;
             spriteBatch.Draw(texPixel, r, null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
-=======
+        }
+
         public void UpdateEnemies() {
             UpdateMoles();
             UpdateBirds();
         }
+
         public void DrawEnemies() {
             DrawMoles();
             DrawBirds();
->>>>>>> master
         }
 
 

@@ -58,11 +58,9 @@ namespace GrapplingHook {
                         player.velocity.X = 0;
                     }
                 }
-
-                //Gravity
+                
                 player.velocity.Y += GRAVITY;
-
-                //Collision with wind tiles
+                
                 var windRight = false;
                 for (int i = 0; i < TilesRightWind.Count; i++) {
                     var tile = TilesRightWind[i];
@@ -98,42 +96,31 @@ namespace GrapplingHook {
 
                 player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
                 player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
-
-<<<<<<< HEAD
-            //Grappling hook tension
-            if (hookState == HookState.Hooked)
-            {
-                Vector2 oldNextPosition = player.Center + player.velocity;
-                Vector2 newNextPositionRelative = oldNextPosition - hook.Center;
-                if (newNextPositionRelative.Length() >= ropeLength)
+                
+                //Handle rope tension
+                if (hookState == HookState.Hooked)
                 {
-                    newNextPositionRelative.Normalize();
-                    newNextPositionRelative.X *= (float)ropeLength;
-                    newNextPositionRelative.Y *= (float)ropeLength;
-                    Vector2 newNextPosition = hook.Center + newNextPositionRelative;
-                    float velocityMagnitude = player.velocity.Length();
-                    player.velocity = newNextPosition - player.Center;
-                    player.velocity.Normalize();
-                    player.velocity *= velocityMagnitude;
+                    Vector2 oldNextPosition = player.Center + player.velocity;
+                    Vector2 newNextPositionRelative = oldNextPosition - hook.Center;
+                    if (newNextPositionRelative.Length() >= ropeLength)
+                    {
+                        newNextPositionRelative.Normalize();
+                        newNextPositionRelative.X *= (float)ropeLength;
+                        newNextPositionRelative.Y *= (float)ropeLength;
+                        Vector2 newNextPosition = hook.Center + newNextPositionRelative;
+                        float velocityMagnitude = player.velocity.Length();
+                        player.velocity = newNextPosition - player.Center;
+                        player.velocity.Normalize();
+                        player.velocity *= velocityMagnitude;
+                    }
                 }
-                //Something's wrong here. It's not behaving correctly when swinging idly
-            }
-
-            //Collision with wind tiles
-            var windRight = false;
-            for (int i = 0; i < TilesRightWind.Count; i++) {
-                var tile = TilesRightWind[i];
-                if (player.Intersects(tile)) {
-                    windRight = true;
-                    break;
-=======
+            
                 for (int i = 0; i < TilesSpike.Count; i++) {
                     var spike = TilesSpike[i];
                     if (player.Intersects(spike)) {
                         PlayerDie();
                         return;
                     }
->>>>>>> master
                 }
 
                 for (int i = Apples.Count - 1; i >= 0; i--) {
@@ -159,24 +146,7 @@ namespace GrapplingHook {
                         return;
                     }
                 }
-
-<<<<<<< HEAD
-            player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
-            player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
-
-            //Collision with solid tiles
-            for (int i = 0; i < TilesSolid.Count; i++) {
-                var tile = TilesSolid[i];
-                if (player.WillIntersect(tile)) {
-                    var oldVelX = player.velocity.X;
-                    player.velocity.X = 0;
-                    if (player.velocity.Y > 0) {
-                        if (player.WillIntersect(tile)) {
-                            player.position.Y = tile.Up - player.bounds.Y;
-                            player.velocity.Y = 0;
-                            playerState = PlayerState.OnGround;
-=======
-                //Collision with solid tiles
+                
                 for (int i = 0; i < TilesSolid.Count; i++) {
                     var tile = TilesSolid[i];
                     if (player.WillIntersect(tile)) {
@@ -188,7 +158,6 @@ namespace GrapplingHook {
                                 player.velocity.Y = 0;
                                 playerState = PlayerState.OnGround;
                             }
->>>>>>> master
                         }
                         else if (player.velocity.Y < 0) {
                             if (player.WillIntersect(tile)) {
@@ -214,8 +183,7 @@ namespace GrapplingHook {
                         player.velocity.Y = oldVelY;
                     }
                 }
-
-                //Collision with one-way platforms
+                
                 for (int i = 0; i < TilesOneWayPlatform.Count; i++) {
                     var tile = TilesOneWayPlatform[i];
                     if (player.WillIntersect(tile)) {
