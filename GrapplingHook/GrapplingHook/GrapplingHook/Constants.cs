@@ -26,5 +26,9 @@ namespace GrapplingHook {
         const float PLAYER_FRICTION_AIR = .05f;
         const float PLAYER_JUMP = -4.5f;
         const float PLAYER_MAX_SPEED_X = 2.5f;
+        const float PLAYER_DEATH_TIMER = 60;
+
+        const float MOLE_SPEED = .75f;
+        const float BIRD_SPEED = 1.25f;
     }
 }

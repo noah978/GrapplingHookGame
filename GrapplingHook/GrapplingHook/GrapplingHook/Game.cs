@@ -68,6 +68,11 @@ namespace GrapplingHook
             TilesLeftWind = new List<Hitbox>();
             TilesDownWind = new List<Hitbox>();
 
+            Apples = new List<Hitbox>();
+
+            Moles = new List<Mobile>();
+            Birds = new List<Mobile>();
+
             IsMouseVisible = true;
 
             ChangeLevel(level);
@@ -83,6 +88,10 @@ namespace GrapplingHook
             texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
             texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
             texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
+
+            texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
+            texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
         }
         
         protected override void UnloadContent() {}
@@ -95,7 +104,12 @@ namespace GrapplingHook
             gamepad = GamePad.GetState(PlayerIndex.One);
 
             if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod)) {
-                ChangeLevel(++level);
+                level = (level + 1) % levelNames.Length;
+                ChangeLevel(level);
+            }
+            if (keyboard.IsKeyDown(Keys.OemComma) && keyboardOld.IsKeyUp(Keys.OemComma)) {
+                level = (level - 1) % levelNames.Length;
+                ChangeLevel(level);
             }
 
             switch (state)
@@ -110,6 +124,7 @@ namespace GrapplingHook
                     break;
                 case GameState.Level:
                     UpdatePlayer();
+                    UpdateEnemies();
                     break;
                 case GameState.Pause:
                     
@@ -143,8 +158,8 @@ namespace GrapplingHook
                     break;
                 case GameState.Level:
                     DrawTiles();
-                    //DrawEnemies();
-                    //DrawApples();
+                    DrawEnemies();
+                    DrawApples();
                     //DrawParticles();
                     DrawPlayer();
                     break;
@@ -173,9 +188,16 @@ namespace GrapplingHook
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }   
+        }
 
-        
+        public void UpdateEnemies() {
+            UpdateMoles();
+            UpdateBirds();
+        }
+        public void DrawEnemies() {
+            DrawMoles();
+            DrawBirds();
+        }
 
 
 

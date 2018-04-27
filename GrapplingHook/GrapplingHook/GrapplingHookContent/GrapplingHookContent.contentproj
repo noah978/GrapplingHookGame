@@ -71,8 +71,12 @@
     <Folder Include="Textures\Tiles\Tower\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Levels\test.dat">
-      <Name>test</Name>
+    <None Include="Levels\01.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>01</Name>
+    </None>
+    <None Include="Levels\00.dat">
+      <Name>00</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -127,6 +131,13 @@
   <ItemGroup>
     <Compile Include="Textures\Tiles\OneWayPlatform.png">
       <Name>OneWayPlatform</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Apple.png">
+      <Name>Apple</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -9,7 +9,7 @@ using GrapplingHook.Logic;
 
 namespace GrapplingHook {
     public partial class Game {
-        const string TileLetters = "-PGWNOSRDLUMB";
+        const string TileLetters = "-PGWNOSRDLUAMB";
 
         Texture2D
             texTileGoal,
@@ -55,6 +55,17 @@ namespace GrapplingHook {
         }
 
         public void ResetLevel() {
+            TilesSolid.Clear();
+            TilesOneWayPlatform.Clear();
+            TilesSpike.Clear();
+            TilesRightWind.Clear();
+            TilesDownWind.Clear();
+            TilesLeftWind.Clear();
+            TilesUpWind.Clear();
+            Apples.Clear();
+            Moles.Clear();
+            Birds.Clear();
+
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
                     switch (tilemap[i, j]) {
@@ -87,6 +98,15 @@ namespace GrapplingHook {
                             break;
                         case Tile.UpWind:
                             TilesUpWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
+                            break;
+                        case Tile.Apple:
+                            Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
+                            break;
+                        case Tile.Mole:
+                            Moles.Add(new Mobile(i * 16, j * 16, MOLE_SPEED, 0, 16, 16));
+                            break;
+                        case Tile.Bird:
+                            Birds.Add(new Mobile(i * 16, j * 16, BIRD_SPEED, 0, 16, 16));
                             break;
                     }
         }
