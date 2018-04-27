@@ -19,7 +19,7 @@ namespace GrapplingHook.Logic
         LeftWind,
         UpWind,
         Apple,
-        Mole,
-        Bird
+        Grounder,
+        Flyer
     }
 }

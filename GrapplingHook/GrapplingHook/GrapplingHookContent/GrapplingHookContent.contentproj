@@ -52,16 +52,13 @@
     <Folder Include="Audio\Sounds\Characters\Boss\" />
     <Folder Include="Audio\Sounds\Characters\Jess\" />
     <Folder Include="Audio\Sounds\Characters\Matt\" />
-    <Folder Include="Audio\Sounds\Enemies\Bird\" />
-    <Folder Include="Audio\Sounds\Enemies\Mole\" />
-    <Folder Include="Audio\Sounds\Enemies\Worm\" />
+    <Folder Include="Audio\Sounds\Enemies\Flyer\" />
+    <Folder Include="Audio\Sounds\Enemies\Grounder\" />
+    <Folder Include="Audio\Sounds\Enemies\Sneaker\" />
     <Folder Include="Audio\Sounds\Player\" />
     <Folder Include="Textures\Characters\Boss\" />
     <Folder Include="Textures\Characters\Jess\" />
     <Folder Include="Textures\Characters\Matt\" />
-    <Folder Include="Textures\Enemies\Bird\" />
-    <Folder Include="Textures\Enemies\Mole\" />
-    <Folder Include="Textures\Enemies\Worm\" />
     <Folder Include="Textures\Interface\HUD\" />
     <Folder Include="Textures\Interface\Options Menu\" />
     <Folder Include="Textures\Interface\Pause Menu\" />
@@ -110,12 +107,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Bird.png">
+    <Compile Include="Textures\Enemies\Flyer\Bird.png">
       <Name>Bird</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Mole.png">
+    <Compile Include="Textures\Enemies\Grounder\Mole.png">
       <Name>Mole</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -138,6 +135,34 @@
   <ItemGroup>
     <Compile Include="Textures\Apple.png">
       <Name>Apple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Flyer\Eye.png">
+      <Name>Eye</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Grounder\Spider.png">
+      <Name>Spider</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Sneaker\Spectre.png">
+      <Name>Spectre</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Sneaker\Worm.png">
+      <Name>Worm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

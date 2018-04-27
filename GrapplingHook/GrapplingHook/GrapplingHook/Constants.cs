@@ -28,7 +28,10 @@ namespace GrapplingHook {
         const float PLAYER_MAX_SPEED_X = 2.5f;
         const float PLAYER_DEATH_TIMER = 60;
 
-        const float MOLE_SPEED = .75f;
-        const float BIRD_SPEED = 1.25f;
+        const float GROUNDER_SPEED = .75f;
+        const float FLYER_SPEED = 1.25f;
+
+        const int LEVEL_TYPE_SHIFT = 5; //adjust as necessary; level at which the tower starts
+        const int LEVEL_BOSS = 10; //adjust as necessary; level of the boss fight
     }
 }

@@ -115,16 +115,16 @@ namespace GrapplingHook {
                     }
                 }
 
-                for (int i = 0; i < Moles.Count; i++) {
-                    var mole = Moles[i];
+                for (int i = 0; i < Grounders.Count; i++) {
+                    var mole = Grounders[i];
                     if (player.Intersects(mole)) {
                         PlayerDie();
                         return;
                     }
                 }
 
-                for (int i = 0; i < Birds.Count; i++) {
-                    var bird = Birds[i];
+                for (int i = 0; i < Flyer.Count; i++) {
+                    var bird = Flyer[i];
                     if (player.Intersects(bird)) {
                         PlayerDie();
                         return;
