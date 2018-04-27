@@ -11,6 +11,8 @@ namespace GrapplingHook {
     public partial class Game {
         const string TileLetters = "-PGWNOSRDLUAMB";
 
+        LevelType levelType;
+
         Texture2D
             texTileGoal,
             texTileWall,
@@ -38,6 +40,14 @@ namespace GrapplingHook {
         
         public void ChangeLevel(int id) {
             level = id;
+
+            if (level < LEVEL_TYPE_SHIFT)
+                levelType = LevelType.Canyon;
+            else if (level < LEVEL_BOSS)
+                levelType = LevelType.Tower;
+            else if (level == LEVEL_BOSS)
+                levelType = LevelType.Boss;
+
             tilemap = LoadTilemap(levelNames[id]);
             ResetLevel();
         }
@@ -63,8 +73,8 @@ namespace GrapplingHook {
             TilesLeftWind.Clear();
             TilesUpWind.Clear();
             Apples.Clear();
-            Moles.Clear();
-            Birds.Clear();
+            Grounders.Clear();
+            Flyer.Clear();
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
@@ -102,11 +112,11 @@ namespace GrapplingHook {
                         case Tile.Apple:
                             Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
                             break;
-                        case Tile.Mole:
-                            Moles.Add(new Mobile(i * 16, j * 16, MOLE_SPEED, 0, 16, 16));
+                        case Tile.Grounder:
+                            Grounders.Add(new Mobile(i * 16, j * 16, GROUNDER_SPEED, 0, 16, 16));
                             break;
-                        case Tile.Bird:
-                            Birds.Add(new Mobile(i * 16, j * 16, BIRD_SPEED, 0, 16, 16));
+                        case Tile.Flyer:
+                            Flyer.Add(new Mobile(i * 16, j * 16, FLYER_SPEED, 0, 16, 16));
                             break;
                     }
         }

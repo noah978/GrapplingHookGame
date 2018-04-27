@@ -72,8 +72,8 @@ namespace GrapplingHook
 
             Apples = new List<Hitbox>();
 
-            Moles = new List<Mobile>();
-            Birds = new List<Mobile>();
+            Grounders = new List<Mobile>();
+            Flyer = new List<Mobile>();
 
             IsMouseVisible = true;
 
@@ -92,8 +92,10 @@ namespace GrapplingHook
             texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
-            texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
-            texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
+            texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
+            texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
+            texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
         }
         
         protected override void UnloadContent() {}
@@ -206,13 +208,13 @@ namespace GrapplingHook
         }
 
         public void UpdateEnemies() {
-            UpdateMoles();
-            UpdateBirds();
+            UpdateGrounders();
+            UpdateFlyers();
         }
 
         public void DrawEnemies() {
-            DrawMoles();
-            DrawBirds();
+            DrawGrounders();
+            DrawFlyers();
         }
 
 
