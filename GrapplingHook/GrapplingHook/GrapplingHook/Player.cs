@@ -59,9 +59,7 @@ namespace GrapplingHook {
                     }
                 }
 
-                //Gravity
-                //if (hookState != HookState.Hooked || Distance(player.position.X, player.position.Y, hook.position.X, hook.position.Y) < ropeLength)
-                    player.velocity.Y += GRAVITY;
+                player.velocity.Y += GRAVITY;
                 
                 var windRight = false;
                 for (int i = 0; i < TilesRightWind.Count; i++) {
@@ -99,7 +97,6 @@ namespace GrapplingHook {
                 player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
                 player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
 
-                bool applyRopeGravity = false;
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
                 {
@@ -107,7 +104,6 @@ namespace GrapplingHook {
                     Vector2 newNextPositionRelative = oldNextPosition - hook.Center;
                     if (newNextPositionRelative.Length() >= ropeLength)
                     {
-                        applyRopeGravity = true;
                         newNextPositionRelative.Normalize();
                         newNextPositionRelative.X *= (float)ropeLength;
                         newNextPositionRelative.Y *= (float)ropeLength;
@@ -117,16 +113,6 @@ namespace GrapplingHook {
                         player.velocity.Normalize();
                         player.velocity *= velocityMagnitude;
                     }
-                }
-
-                //Rope Gravity
-                if (applyRopeGravity)
-                {
-                    double angle = Math.Atan2(player.velocity.Y, player.velocity.X);
-                    float oldMagnitude = player.velocity.Length();
-                    player.velocity.Normalize();
-                    if (angle >= 0 && angle < Math.PI)
-                        player.velocity *= oldMagnitude + GRAVITY;
                 }
 
                 for (int i = 0; i < TilesSpike.Count; i++) {
