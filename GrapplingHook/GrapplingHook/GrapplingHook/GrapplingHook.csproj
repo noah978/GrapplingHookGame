@@ -73,14 +73,15 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="Levels.cs" />
+    <Compile Include="Logic\LevelType.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Hitbox.cs" />
     <Compile Include="Logic\HookState.cs" />
     <Compile Include="Logic\Mobile.cs" />
     <Compile Include="Logic\PlayerState.cs" />
     <Compile Include="Logic\Tile.cs" />
-    <Compile Include="Bird.cs" />
-    <Compile Include="Mole.cs" />
+    <Compile Include="Flyer.cs" />
+    <Compile Include="Grounder.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

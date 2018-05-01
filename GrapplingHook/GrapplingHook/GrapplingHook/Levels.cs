@@ -11,12 +11,18 @@ namespace GrapplingHook {
     public partial class Game {
         const string TileLetters = "-PGWNOSRDLUAMB";
 
+        LevelType levelType;
+
         Texture2D
             texTileGoal,
-            texTileWall,
-            texTileOneWayPlatform,
-            texTileNoGrapple,
-            texTileSpike,
+            texTileWallRavine,
+            texTileWallTower,
+            texTileOneWayPlatformRavine,
+            texTileOneWayPlatformTower,
+            texTileNoGrappleRavine,
+            texTileNoGrappleTower,
+            texTileSpikeRavine,
+            texTileSpikeTower,
             texTileWind;
 
         string[] levelNames;
@@ -37,7 +43,15 @@ namespace GrapplingHook {
         Hitbox goal;
         
         public void ChangeLevel(int id) {
-            level = id;
+            level = 6;
+
+            if (level < LEVEL_TYPE_SHIFT)
+                levelType = LevelType.Ravine;
+            else if (level < LEVEL_BOSS)
+                levelType = LevelType.Tower;
+            else if (level == LEVEL_BOSS)
+                levelType = LevelType.Boss;
+
             tilemap = LoadTilemap(levelNames[id]);
             ResetLevel();
         }
@@ -63,8 +77,8 @@ namespace GrapplingHook {
             TilesLeftWind.Clear();
             TilesUpWind.Clear();
             Apples.Clear();
-            Moles.Clear();
-            Birds.Clear();
+            Grounders.Clear();
+            Flyer.Clear();
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
@@ -102,11 +116,11 @@ namespace GrapplingHook {
                         case Tile.Apple:
                             Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
                             break;
-                        case Tile.Mole:
-                            Moles.Add(new Mobile(i * 16, j * 16, MOLE_SPEED, 0, 16, 16));
+                        case Tile.Grounder:
+                            Grounders.Add(new Mobile(i * 16, j * 16, GROUNDER_SPEED, 0, 16, 16));
                             break;
-                        case Tile.Bird:
-                            Birds.Add(new Mobile(i * 16, j * 16, BIRD_SPEED, 0, 16, 16));
+                        case Tile.Flyer:
+                            Flyer.Add(new Mobile(i * 16, j * 16, FLYER_SPEED, 0, 16, 16));
                             break;
                     }
         }
@@ -127,16 +141,16 @@ namespace GrapplingHook {
                             texture = texTileGoal;
                             break;
                         case Tile.Wall:
-                            texture = texTileWall;
+                            texture = (levelType == LevelType.Ravine ? texTileWallRavine : texTileWallTower);
                             break;
                         case Tile.NoGrapple:
-                            texture = texTileNoGrapple;
+                            texture = (levelType == LevelType.Ravine ? texTileNoGrappleRavine : texTileNoGrappleTower);
                             break;
                         case Tile.OneWayPlatform:
-                            texture = texTileOneWayPlatform;
+                            texture = (levelType == LevelType.Ravine ? texTileOneWayPlatformRavine : texTileOneWayPlatformTower);
                             break;
                         case Tile.Spike:
-                            texture = texTileSpike;
+                            texture = (levelType == LevelType.Ravine ? texTileSpikeRavine : texTileSpikeTower);
                             break;
                         case Tile.RightWind:
                             texture = texTileWind;
