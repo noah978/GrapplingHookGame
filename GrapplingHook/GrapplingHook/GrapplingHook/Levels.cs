@@ -15,10 +15,14 @@ namespace GrapplingHook {
 
         Texture2D
             texTileGoal,
-            texTileWall,
-            texTileOneWayPlatform,
-            texTileNoGrapple,
-            texTileSpike,
+            texTileWallRavine,
+            texTileWallTower,
+            texTileOneWayPlatformRavine,
+            texTileOneWayPlatformTower,
+            texTileNoGrappleRavine,
+            texTileNoGrappleTower,
+            texTileSpikeRavine,
+            texTileSpikeTower,
             texTileWind;
 
         string[] levelNames;
@@ -39,10 +43,10 @@ namespace GrapplingHook {
         Hitbox goal;
         
         public void ChangeLevel(int id) {
-            level = id;
+            level = 6;
 
             if (level < LEVEL_TYPE_SHIFT)
-                levelType = LevelType.Canyon;
+                levelType = LevelType.Ravine;
             else if (level < LEVEL_BOSS)
                 levelType = LevelType.Tower;
             else if (level == LEVEL_BOSS)
@@ -137,16 +141,16 @@ namespace GrapplingHook {
                             texture = texTileGoal;
                             break;
                         case Tile.Wall:
-                            texture = texTileWall;
+                            texture = (levelType == LevelType.Ravine ? texTileWallRavine : texTileWallTower);
                             break;
                         case Tile.NoGrapple:
-                            texture = texTileNoGrapple;
+                            texture = (levelType == LevelType.Ravine ? texTileNoGrappleRavine : texTileNoGrappleTower);
                             break;
                         case Tile.OneWayPlatform:
-                            texture = texTileOneWayPlatform;
+                            texture = (levelType == LevelType.Ravine ? texTileOneWayPlatformRavine : texTileOneWayPlatformTower);
                             break;
                         case Tile.Spike:
-                            texture = texTileSpike;
+                            texture = (levelType == LevelType.Ravine ? texTileSpikeRavine : texTileSpikeTower);
                             break;
                         case Tile.RightWind:
                             texture = texTileWind;

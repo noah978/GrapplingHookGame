@@ -50,7 +50,7 @@ namespace GrapplingHook {
         public void DrawGrounders() {
             for (int i = 0; i < Grounders.Count; i++) {
                 var grounder = Grounders[i];
-                spriteBatch.Draw((levelType == LevelType.Canyon ? texMole : texSpider), grounder.position, Color.White);
+                spriteBatch.Draw((levelType == LevelType.Ravine ? texMole : texSpider), grounder.position, Color.White);
             }
         }
 
