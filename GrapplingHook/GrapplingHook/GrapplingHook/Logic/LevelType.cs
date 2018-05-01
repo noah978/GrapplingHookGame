@@ -7,7 +7,7 @@ namespace GrapplingHook.Logic
 {
     public enum LevelType
     {
-        Canyon,
+        Ravine,
         Tower,
         Boss
     }

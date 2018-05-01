@@ -45,7 +45,7 @@ namespace GrapplingHook {
         public void DrawFlyers() {
             for (int i = 0; i < Flyer.Count; i++) {
                 var flyer = Flyer[i];
-                spriteBatch.Draw((levelType == LevelType.Canyon ? texBird : texEye), flyer.position, Color.White);
+                spriteBatch.Draw((levelType == LevelType.Ravine ? texBird : texEye), flyer.position, Color.White);
             }
         }
 
