@@ -9,7 +9,9 @@ using GrapplingHook.Logic;
 
 namespace GrapplingHook {
     public partial class Game {
-        const string TileLetters = "-PGWNOSRDLUAMB";
+        const string TileLetters = "-PGWNOSARFB";
+
+        // - = Empty; p = Player; G = NonGrappleable; O = One Way Platform; S = Spike; A = Apple; R = Grounder; F = Flyer; B = Sneaker
 
         LevelType levelType;
 
@@ -22,8 +24,7 @@ namespace GrapplingHook {
             texTileNoGrappleRavine,
             texTileNoGrappleTower,
             texTileSpikeRavine,
-            texTileSpikeTower,
-            texTileWind;
+            texTileSpikeTower;
 
         string[] levelNames;
         int level;
@@ -34,11 +35,7 @@ namespace GrapplingHook {
         List<Hitbox>
             TilesSolid,
             TilesSpike,
-            TilesOneWayPlatform,
-            TilesRightWind,
-            TilesUpWind,
-            TilesLeftWind,
-            TilesDownWind;
+            TilesOneWayPlatform;
 
         Hitbox goal;
         
@@ -72,10 +69,6 @@ namespace GrapplingHook {
             TilesSolid.Clear();
             TilesOneWayPlatform.Clear();
             TilesSpike.Clear();
-            TilesRightWind.Clear();
-            TilesDownWind.Clear();
-            TilesLeftWind.Clear();
-            TilesUpWind.Clear();
             Apples.Clear();
             Grounders.Clear();
             Flyer.Clear();
@@ -100,18 +93,6 @@ namespace GrapplingHook {
                             break;
                         case Tile.Spike:
                             TilesSpike.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.RightWind:
-                            TilesRightWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.DownWind:
-                            TilesDownWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.LeftWind:
-                            TilesLeftWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.UpWind:
-                            TilesUpWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                         case Tile.Apple:
                             Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
@@ -151,25 +132,6 @@ namespace GrapplingHook {
                             break;
                         case Tile.Spike:
                             texture = (levelType == LevelType.Ravine ? texTileSpikeRavine : texTileSpikeTower);
-                            break;
-                        case Tile.RightWind:
-                            texture = texTileWind;
-                            break;
-                        case Tile.DownWind:
-                            origin.Y = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.PiOver2;
-                            break;
-                        case Tile.LeftWind:
-                            origin.X = 16;
-                            origin.Y = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.Pi;
-                            break;
-                        case Tile.UpWind:
-                            origin.X = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.Pi + MathHelper.PiOver2;
                             break;
                     }
                     if (texture != null)

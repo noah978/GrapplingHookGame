@@ -65,10 +65,6 @@ namespace GrapplingHook
             TilesSolid = new List<Hitbox>();
             TilesOneWayPlatform = new List<Hitbox>();
             TilesSpike = new List<Hitbox>();
-            TilesRightWind = new List<Hitbox>();
-            TilesUpWind = new List<Hitbox>();
-            TilesLeftWind = new List<Hitbox>();
-            TilesDownWind = new List<Hitbox>();
 
             Apples = new List<Hitbox>();
 
@@ -93,7 +89,6 @@ namespace GrapplingHook
             texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "NoGrapple");
             texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Spike");
             texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Spike");
-            texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
