@@ -71,6 +71,11 @@
     <Folder Include="Textures\Tiles\Tower\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fonts\Font.spritefont">
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Levels\01.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>01</Name>

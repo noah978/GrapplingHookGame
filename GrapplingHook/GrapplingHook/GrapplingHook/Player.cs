@@ -31,7 +31,7 @@ namespace GrapplingHook {
         public void UpdatePlayer() {
             if (playerState != PlayerState.Dead) {
                 player.velocity.X = MathHelper.Clamp(
-                    player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.Right) ? 1 : 0) - (keyboard.IsKeyDown(Keys.Left) ? 1 : 0)),
+                    player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.D) ? 1 : 0) - (keyboard.IsKeyDown(Keys.A) ? 1 : 0)),
                     -PLAYER_MAX_SPEED_X,
                     PLAYER_MAX_SPEED_X);
 
@@ -44,7 +44,7 @@ namespace GrapplingHook {
                         player.velocity.X = 0;
                     }
                     //Jumping
-                    if (keyboard.IsKeyDown(Keys.Up) && keyboardOld.IsKeyUp(Keys.Up)) {
+                    if (keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) {
                         player.velocity.Y = PLAYER_JUMP;
                         playerState = PlayerState.InAir;
                     }
@@ -127,6 +127,7 @@ namespace GrapplingHook {
                     var apple = Apples[i];
                     if (player.WillIntersect(apple)) {
                         Apples.RemoveAt(i);
+                        appleCount++;
                         return;
                     }
                 }

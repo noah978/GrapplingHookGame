@@ -34,6 +34,10 @@ namespace GrapplingHook
         MouseState mouse;
         MouseState mouseOld;
 
+        int appleCount;
+
+        SpriteFont font;
+
         public Game()
         {
             //Let's try not to add anything here
@@ -94,6 +98,7 @@ namespace GrapplingHook
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
+            font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
         }
         
         protected override void UnloadContent() {}
@@ -142,7 +147,6 @@ namespace GrapplingHook
                     break;
             }
             
-            base.Update(gameTime);
         }
         
         protected override void Draw(GameTime gameTime)
@@ -168,6 +172,7 @@ namespace GrapplingHook
                     //DrawParticles();
                     DrawPlayer();
                     DrawHook();
+                    DrawGUI();
                     break;
                 case GameState.Pause:
                     DrawTiles();
@@ -192,8 +197,7 @@ namespace GrapplingHook
             }
 
             spriteBatch.End();
-
-            base.Draw(gameTime);
+            
         }
 
         public void DrawLine(Vector2 begin, Vector2 end, Color color, int width = 1)
@@ -215,6 +219,10 @@ namespace GrapplingHook
             DrawBirds();
         }
 
+        public void DrawGUI() {
+            spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
+            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+        }
 
 
     }
