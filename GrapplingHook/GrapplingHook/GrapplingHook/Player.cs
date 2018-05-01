@@ -59,6 +59,9 @@ namespace GrapplingHook {
                     }
                 }
 
+                //Vector2 nextPosition = player.Center + player.velocity;
+                //Vector2 nextRopeVector = (nextPosition - hook.Center);
+                //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
                 player.velocity.Y += GRAVITY;
                 
                 var windRight = false;
@@ -113,6 +116,18 @@ namespace GrapplingHook {
                         player.velocity.Normalize();
                         player.velocity *= velocityMagnitude;
                     }
+                    /*if(nextRopeVector.Length() >= ropeLength)
+                    {
+                        Vector2 ropeVector = player.Center - hook.Center;
+                        double theta = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        double forceMagnitude = Math.Sin(theta) * GRAVITY * 10;
+                        double angle = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        if (angle < Math.PI / 2 || angle >= Math.PI * 3 / 2)
+                            angle += Math.PI / 2;
+                        else
+                            angle -= Math.PI / 2;
+                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + player.velocity.Length());
+                    }*/
                 }
 
                 for (int i = 0; i < TilesSpike.Count; i++) {
