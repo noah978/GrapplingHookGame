@@ -43,7 +43,7 @@ namespace GrapplingHook {
         Hitbox goal;
         
         public void ChangeLevel(int id) {
-            level = 6;
+            level = id;
 
             if (level < LEVEL_TYPE_SHIFT)
                 levelType = LevelType.Ravine;
