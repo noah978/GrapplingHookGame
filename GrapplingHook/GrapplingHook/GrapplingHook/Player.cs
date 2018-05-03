@@ -35,6 +35,17 @@ namespace GrapplingHook {
                     -PLAYER_MAX_SPEED_X,
                     PLAYER_MAX_SPEED_X);
 
+                //adds wind adjustment
+                switch (windDir)
+                {
+                    case (Direction.Right):
+                        player.velocity.X += WIND_STRENGTH;
+                        break;
+                    case (Direction.Left):
+                        player.velocity.X -= WIND_STRENGTH;
+                        break;
+                }
+
                 if (playerState == PlayerState.OnGround) {
                     //Friction
                     if (player.velocity.X < -PLAYER_FRICTION_GROUND || player.velocity.X > PLAYER_FRICTION_GROUND) {
@@ -183,6 +194,8 @@ namespace GrapplingHook {
                     ResetLevel();
                 }
             }
+
+            
         }
 
         public void DrawPlayer() {
