@@ -29,6 +29,7 @@ namespace GrapplingHook {
         string[] levelNames;
         int level;
         Tile[,] tilemap;
+        Direction windDir;
 
         StreamReader file;
 
@@ -51,6 +52,7 @@ namespace GrapplingHook {
 
             tilemap = LoadTilemap(levelNames[id]);
             ResetLevel();
+            windDir = LoadWind(levelNames[id]);
         }
 
         public Tile[,] LoadTilemap(string path) {
@@ -65,6 +67,23 @@ namespace GrapplingHook {
             return result;
         }
 
+        public Direction LoadWind(string path)
+        {
+            file = new StreamReader(path);
+            for (var j = 0; j < LEVEL_HEIGHT; j++)
+                file.ReadLine();
+            char wind = ((file.ReadLine()).ToCharArray()[0]);
+            switch (wind)
+            {
+                case 'L':
+                    return Direction.Left;
+                case 'R':
+                    return Direction.Right;
+                default:
+                    return Direction.None;
+            }
+        }
+
         public void ResetLevel() {
             TilesSolid.Clear();
             TilesOneWayPlatform.Clear();
@@ -72,6 +91,7 @@ namespace GrapplingHook {
             Apples.Clear();
             Grounders.Clear();
             Flyer.Clear();
+            windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
