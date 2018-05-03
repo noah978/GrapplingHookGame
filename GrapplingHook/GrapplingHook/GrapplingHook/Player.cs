@@ -62,8 +62,14 @@ namespace GrapplingHook {
                 //Vector2 nextPosition = player.Center + player.velocity;
                 //Vector2 nextRopeVector = (nextPosition - hook.Center);
                 //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
-                player.velocity.Y += GRAVITY;
-                
+                double m = 2.5;
+                if (hookState == HookState.Hooked)
+                    //player.velocity.Y += GRAVITY * (float)Math.Pow(1 - (1 / ropeLength), (player.Center.Y - hook.Center.Y) - ropeLength);
+                    player.velocity.Y += GRAVITY * (float)(-((m-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + m);
+                else
+                    player.velocity.Y += GRAVITY;
+
+
                 var windRight = false;
                 for (int i = 0; i < TilesRightWind.Count; i++) {
                     var tile = TilesRightWind[i];
@@ -120,13 +126,14 @@ namespace GrapplingHook {
                     {
                         Vector2 ropeVector = player.Center - hook.Center;
                         double theta = Math.Atan2(ropeVector.Y, ropeVector.X);
-                        double forceMagnitude = Math.Sin(theta) * GRAVITY * 10;
+                        double forceMagnitude = Math.Sin(theta) * GRAVITY;
                         double angle = Math.Atan2(ropeVector.Y, ropeVector.X);
                         if (angle < Math.PI / 2 || angle >= Math.PI * 3 / 2)
                             angle += Math.PI / 2;
                         else
                             angle -= Math.PI / 2;
-                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + player.velocity.Length());
+                        int sub = (Math.Atan2(player.velocity.Y, player.velocity.X) < angle) ? -1 : 1;
+                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + (player.velocity.Length() * sub));
                     }*/
                 }
 
