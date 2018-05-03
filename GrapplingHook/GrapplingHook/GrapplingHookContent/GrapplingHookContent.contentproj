@@ -63,7 +63,6 @@
     <Folder Include="Textures\Interface\Options Menu\" />
     <Folder Include="Textures\Interface\Pause Menu\" />
     <Folder Include="Textures\Interface\Title Screen\" />
-    <Folder Include="Textures\Particles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fonts\Font.spritefont">
@@ -95,13 +94,6 @@
   <ItemGroup>
     <Compile Include="Textures\Player.png">
       <Name>Player</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Tiles\Wind.png">
-      <Name>Wind</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -205,6 +197,13 @@
   <ItemGroup>
     <Compile Include="Textures\Tiles\Ravine\Spike.png">
       <Name>Spike</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Particles\Wind.png">
+      <Name>Wind</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -61,42 +61,6 @@ namespace GrapplingHook {
                 
                 player.velocity.Y += GRAVITY;
                 
-                var windRight = false;
-                for (int i = 0; i < TilesRightWind.Count; i++) {
-                    var tile = TilesRightWind[i];
-                    if (player.Intersects(tile)) {
-                        windRight = true;
-                        break;
-                    }
-                }
-                var windLeft = false;
-                for (int i = 0; i < TilesLeftWind.Count; i++) {
-                    var tile = TilesLeftWind[i];
-                    if (player.Intersects(tile)) {
-                        windLeft = true;
-                        break;
-                    }
-                }
-                var windDown = false;
-                for (int i = 0; i < TilesDownWind.Count; i++) {
-                    var tile = TilesDownWind[i];
-                    if (player.Intersects(tile)) {
-                        windDown = true;
-                        break;
-                    }
-                }
-                var windUp = false;
-                for (int i = 0; i < TilesUpWind.Count; i++) {
-                    var tile = TilesUpWind[i];
-                    if (player.Intersects(tile)) {
-                        windUp = true;
-                        break;
-                    }
-                }
-
-                player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
-                player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
-                
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
                 {

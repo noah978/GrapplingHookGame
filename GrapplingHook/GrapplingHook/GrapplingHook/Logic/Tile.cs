@@ -14,10 +14,6 @@ namespace GrapplingHook.Logic
         NoGrapple,
         OneWayPlatform,
         Spike,
-        RightWind,
-        DownWind,
-        LeftWind,
-        UpWind,
         Apple,
         Grounder,
         Flyer

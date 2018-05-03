@@ -73,6 +73,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="Levels.cs" />
+    <Compile Include="Logic\Direction.cs" />
     <Compile Include="Logic\LevelType.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Hitbox.cs" />
