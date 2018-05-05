@@ -29,6 +29,7 @@ namespace GrapplingHook {
 
         const float HOOK_SPEED = 10f;
         const float HOOK_MAX_LENGTH = 192f;
+        const float HOOK_GRAVITY_MULTIPLIER = 2f;
 
         const float PLAYER_DEATH_TIMER = 60;
 

@@ -62,10 +62,9 @@ namespace GrapplingHook {
                 //Vector2 nextPosition = player.Center + player.velocity;
                 //Vector2 nextRopeVector = (nextPosition - hook.Center);
                 //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
-                double m = 2.5;
                 if (hookState == HookState.Hooked)
                     //player.velocity.Y += GRAVITY * (float)Math.Pow(1 - (1 / ropeLength), (player.Center.Y - hook.Center.Y) - ropeLength);
-                    player.velocity.Y += GRAVITY * (float)(-((m-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + m);
+                    player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
                 else
                     player.velocity.Y += GRAVITY;
 
