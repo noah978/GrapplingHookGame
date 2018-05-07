@@ -58,9 +58,19 @@ namespace GrapplingHook {
                         player.velocity.X = 0;
                     }
                 }
+
+
+                //Vector2 nextPosition = player.Center + player.velocity;
+                //Vector2 nextRopeVector = (nextPosition - hook.Center);
+                //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
+                if (hookState == HookState.Hooked)
+                    //player.velocity.Y += GRAVITY * (float)Math.Pow(1 - (1 / ropeLength), (player.Center.Y - hook.Center.Y) - ropeLength);
+                    player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
+                else
+                    player.velocity.Y += GRAVITY;
                 
-                player.velocity.Y += GRAVITY;
-                
+                //player.velocity.Y += GRAVITY;
+
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
                 {
@@ -77,8 +87,21 @@ namespace GrapplingHook {
                         player.velocity.Normalize();
                         player.velocity *= velocityMagnitude;
                     }
+                    /*if(nextRopeVector.Length() >= ropeLength)
+                    {
+                        Vector2 ropeVector = player.Center - hook.Center;
+                        double theta = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        double forceMagnitude = Math.Sin(theta) * GRAVITY;
+                        double angle = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        if (angle < Math.PI / 2 || angle >= Math.PI * 3 / 2)
+                            angle += Math.PI / 2;
+                        else
+                            angle -= Math.PI / 2;
+                        int sub = (Math.Atan2(player.velocity.Y, player.velocity.X) < angle) ? -1 : 1;
+                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + (player.velocity.Length() * sub));
+                    }*/
                 }
-            
+
                 for (int i = 0; i < TilesSpike.Count; i++) {
                     var spike = TilesSpike[i];
                     if (player.Intersects(spike)) {
