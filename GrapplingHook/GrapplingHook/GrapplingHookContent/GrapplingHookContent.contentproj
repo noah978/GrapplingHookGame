@@ -52,25 +52,24 @@
     <Folder Include="Audio\Sounds\Characters\Boss\" />
     <Folder Include="Audio\Sounds\Characters\Jess\" />
     <Folder Include="Audio\Sounds\Characters\Matt\" />
-    <Folder Include="Audio\Sounds\Enemies\Bird\" />
-    <Folder Include="Audio\Sounds\Enemies\Mole\" />
-    <Folder Include="Audio\Sounds\Enemies\Worm\" />
+    <Folder Include="Audio\Sounds\Enemies\Flyer\" />
+    <Folder Include="Audio\Sounds\Enemies\Grounder\" />
+    <Folder Include="Audio\Sounds\Enemies\Sneaker\" />
     <Folder Include="Audio\Sounds\Player\" />
     <Folder Include="Textures\Characters\Boss\" />
     <Folder Include="Textures\Characters\Jess\" />
     <Folder Include="Textures\Characters\Matt\" />
-    <Folder Include="Textures\Enemies\Bird\" />
-    <Folder Include="Textures\Enemies\Mole\" />
-    <Folder Include="Textures\Enemies\Worm\" />
     <Folder Include="Textures\Interface\HUD\" />
     <Folder Include="Textures\Interface\Options Menu\" />
     <Folder Include="Textures\Interface\Pause Menu\" />
     <Folder Include="Textures\Interface\Title Screen\" />
-    <Folder Include="Textures\Particles\" />
-    <Folder Include="Textures\Tiles\Canyon\" />
-    <Folder Include="Textures\Tiles\Tower\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fonts\Font.spritefont">
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Levels\01.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>01</Name>
@@ -85,10 +84,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Tiles\NoGrapple.png">
+    <Compile Include="Textures\Tiles\Tower\NoGrapple.png">
       <Name>NoGrapple</Name>
     </Compile>
-    <Compile Include="Textures\Tiles\Wall.png">
+    <Compile Include="Textures\Tiles\Tower\Wall.png">
       <Name>Wall</Name>
     </Compile>
   </ItemGroup>
@@ -100,26 +99,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Tiles\Wind.png">
-      <Name>Wind</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Tiles\Spike.png">
+    <Compile Include="Textures\Tiles\Tower\Spike.png">
       <Name>Spike</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Bird.png">
+    <Compile Include="Textures\Enemies\Flyer\Bird.png">
       <Name>Bird</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Mole.png">
+    <Compile Include="Textures\Enemies\Grounder\Mole.png">
       <Name>Mole</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -133,7 +125,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Tiles\OneWayPlatform.png">
+    <Compile Include="Textures\Tiles\Tower\OneWayPlatform.png">
       <Name>OneWayPlatform</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -149,6 +141,69 @@
   <ItemGroup>
     <Compile Include="Textures\Apple.png">
       <Name>Apple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Flyer\Eye.png">
+      <Name>Eye</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Grounder\Spider.png">
+      <Name>Spider</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Sneaker\Spectre.png">
+      <Name>Spectre</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Enemies\Sneaker\Worm.png">
+      <Name>Worm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Ravine\NoGrapple.png">
+      <Name>NoGrapple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Ravine\OneWayPlatform.png">
+      <Name>OneWayPlatform</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Ravine\Wall.png">
+      <Name>Wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Tiles\Ravine\Spike.png">
+      <Name>Spike</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Particles\Wind.png">
+      <Name>Wind</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

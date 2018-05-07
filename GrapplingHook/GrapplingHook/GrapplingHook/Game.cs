@@ -34,6 +34,10 @@ namespace GrapplingHook
         MouseState mouse;
         MouseState mouseOld;
 
+        int appleCount;
+
+        SpriteFont font;
+
         public Game()
         {
             //Let's try not to add anything here
@@ -65,15 +69,11 @@ namespace GrapplingHook
             TilesSolid = new List<Hitbox>();
             TilesOneWayPlatform = new List<Hitbox>();
             TilesSpike = new List<Hitbox>();
-            TilesRightWind = new List<Hitbox>();
-            TilesUpWind = new List<Hitbox>();
-            TilesLeftWind = new List<Hitbox>();
-            TilesDownWind = new List<Hitbox>();
 
             Apples = new List<Hitbox>();
 
-            Moles = new List<Mobile>();
-            Birds = new List<Mobile>();
+            Grounders = new List<Mobile>();
+            Flyer = new List<Mobile>();
 
             IsMouseVisible = true;
 
@@ -85,15 +85,21 @@ namespace GrapplingHook
             //Let's try to only put file loading and actual Content.Load calls here
             texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
             texTileGoal = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Goal");
-            texTileWall = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wall");
-            texTileOneWayPlatform = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "OneWayPlatform");
-            texTileNoGrapple = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "NoGrapple");
-            texTileSpike = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Spike");
-            texTileWind = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Wind");
+            texTileWallRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Wall");
+            texTileOneWayPlatformRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "OneWayPlatform");
+            texTileNoGrappleRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "NoGrapple");
+            texTileWallTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Wall");
+            texTileOneWayPlatformTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "OneWayPlatform");
+            texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "NoGrapple");
+            texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Spike");
+            texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Spike");
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
-            texMole = Content.Load<Texture2D>(@"Textures\" + "Mole");
-            texBird = Content.Load<Texture2D>(@"Textures\" + "Bird");
+            font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
+            texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
+            texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
+            texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
         }
         
         protected override void UnloadContent() {}
@@ -142,7 +148,6 @@ namespace GrapplingHook
                     break;
             }
             
-            base.Update(gameTime);
         }
         
         protected override void Draw(GameTime gameTime)
@@ -168,6 +173,7 @@ namespace GrapplingHook
                     //DrawParticles();
                     DrawPlayer();
                     DrawHook();
+                    DrawGUI();
                     break;
                 case GameState.Pause:
                     DrawTiles();
@@ -192,8 +198,7 @@ namespace GrapplingHook
             }
 
             spriteBatch.End();
-
-            base.Draw(gameTime);
+            
         }
 
         public void DrawLine(Vector2 begin, Vector2 end, Color color, int width = 1)
@@ -206,15 +211,19 @@ namespace GrapplingHook
         }
 
         public void UpdateEnemies() {
-            UpdateMoles();
-            UpdateBirds();
+            UpdateGrounders();
+            UpdateFlyers();
         }
 
         public void DrawEnemies() {
-            DrawMoles();
-            DrawBirds();
+            DrawGrounders();
+            DrawFlyers();
         }
 
+        public void DrawGUI() {
+            spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
+            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+        }
 
 
     }

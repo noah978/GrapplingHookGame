@@ -37,7 +37,7 @@ namespace GrapplingHook
             //Deactivate hook of the player jumps or right-click is pressed
             if (hookState == HookState.Hooked)
             {
-                if ((keyboard.IsKeyDown(Keys.Up) && keyboardOld.IsKeyUp(Keys.Up)) || 
+                if ((keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) || 
                     (mouse.RightButton == ButtonState.Pressed && mouseOld.RightButton == ButtonState.Released))
                 {
                     hook.position = new Vector2(-1, -1);

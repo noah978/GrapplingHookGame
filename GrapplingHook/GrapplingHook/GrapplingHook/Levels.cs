@@ -9,37 +9,50 @@ using GrapplingHook.Logic;
 
 namespace GrapplingHook {
     public partial class Game {
-        const string TileLetters = "-PGWNOSRDLUAMB";
+        const string TileLetters = "-PGWNOSARFB";
+
+        // - = Empty; p = Player; G = NonGrappleable; O = One Way Platform; S = Spike; A = Apple; R = Grounder; F = Flyer; B = Sneaker
+
+        LevelType levelType;
 
         Texture2D
             texTileGoal,
-            texTileWall,
-            texTileOneWayPlatform,
-            texTileNoGrapple,
-            texTileSpike,
-            texTileWind;
+            texTileWallRavine,
+            texTileWallTower,
+            texTileOneWayPlatformRavine,
+            texTileOneWayPlatformTower,
+            texTileNoGrappleRavine,
+            texTileNoGrappleTower,
+            texTileSpikeRavine,
+            texTileSpikeTower;
 
         string[] levelNames;
         int level;
         Tile[,] tilemap;
+        Direction windDir;
 
         StreamReader file;
 
         List<Hitbox>
             TilesSolid,
             TilesSpike,
-            TilesOneWayPlatform,
-            TilesRightWind,
-            TilesUpWind,
-            TilesLeftWind,
-            TilesDownWind;
+            TilesOneWayPlatform;
 
         Hitbox goal;
         
         public void ChangeLevel(int id) {
             level = id;
+
+            if (level < LEVEL_TYPE_SHIFT)
+                levelType = LevelType.Ravine;
+            else if (level < LEVEL_BOSS)
+                levelType = LevelType.Tower;
+            else if (level == LEVEL_BOSS)
+                levelType = LevelType.Boss;
+
             tilemap = LoadTilemap(levelNames[id]);
             ResetLevel();
+            windDir = LoadWind(levelNames[id]);
         }
 
         public Tile[,] LoadTilemap(string path) {
@@ -54,17 +67,31 @@ namespace GrapplingHook {
             return result;
         }
 
+        public Direction LoadWind(string path)
+        {
+            file = new StreamReader(path);
+            for (var j = 0; j < LEVEL_HEIGHT; j++)
+                file.ReadLine();
+            char wind = ((file.ReadLine()).ToCharArray()[0]);
+            switch (wind)
+            {
+                case 'L':
+                    return Direction.Left;
+                case 'R':
+                    return Direction.Right;
+                default:
+                    return Direction.None;
+            }
+        }
+
         public void ResetLevel() {
             TilesSolid.Clear();
             TilesOneWayPlatform.Clear();
             TilesSpike.Clear();
-            TilesRightWind.Clear();
-            TilesDownWind.Clear();
-            TilesLeftWind.Clear();
-            TilesUpWind.Clear();
             Apples.Clear();
-            Moles.Clear();
-            Birds.Clear();
+            Grounders.Clear();
+            Flyer.Clear();
+            windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
@@ -87,26 +114,14 @@ namespace GrapplingHook {
                         case Tile.Spike:
                             TilesSpike.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
-                        case Tile.RightWind:
-                            TilesRightWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.DownWind:
-                            TilesDownWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.LeftWind:
-                            TilesLeftWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
-                        case Tile.UpWind:
-                            TilesUpWind.Add(new Hitbox(i * 16, j * 16, 16, 16));
-                            break;
                         case Tile.Apple:
                             Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
                             break;
-                        case Tile.Mole:
-                            Moles.Add(new Mobile(i * 16, j * 16, MOLE_SPEED, 0, 16, 16));
+                        case Tile.Grounder:
+                            Grounders.Add(new Mobile(i * 16, j * 16, GROUNDER_SPEED, 0, 16, 16));
                             break;
-                        case Tile.Bird:
-                            Birds.Add(new Mobile(i * 16, j * 16, BIRD_SPEED, 0, 16, 16));
+                        case Tile.Flyer:
+                            Flyer.Add(new Mobile(i * 16, j * 16, FLYER_SPEED, 0, 16, 16));
                             break;
                     }
         }
@@ -127,35 +142,16 @@ namespace GrapplingHook {
                             texture = texTileGoal;
                             break;
                         case Tile.Wall:
-                            texture = texTileWall;
+                            texture = (levelType == LevelType.Ravine ? texTileWallRavine : texTileWallTower);
                             break;
                         case Tile.NoGrapple:
-                            texture = texTileNoGrapple;
+                            texture = (levelType == LevelType.Ravine ? texTileNoGrappleRavine : texTileNoGrappleTower);
                             break;
                         case Tile.OneWayPlatform:
-                            texture = texTileOneWayPlatform;
+                            texture = (levelType == LevelType.Ravine ? texTileOneWayPlatformRavine : texTileOneWayPlatformTower);
                             break;
                         case Tile.Spike:
-                            texture = texTileSpike;
-                            break;
-                        case Tile.RightWind:
-                            texture = texTileWind;
-                            break;
-                        case Tile.DownWind:
-                            origin.Y = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.PiOver2;
-                            break;
-                        case Tile.LeftWind:
-                            origin.X = 16;
-                            origin.Y = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.Pi;
-                            break;
-                        case Tile.UpWind:
-                            origin.X = 16;
-                            texture = texTileWind;
-                            rotation = MathHelper.Pi + MathHelper.PiOver2;
+                            texture = (levelType == LevelType.Ravine ? texTileSpikeRavine : texTileSpikeTower);
                             break;
                     }
                     if (texture != null)

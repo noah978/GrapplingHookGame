@@ -31,7 +31,7 @@ namespace GrapplingHook {
         public void UpdatePlayer() {
             if (playerState != PlayerState.Dead) {
                 player.velocity.X = MathHelper.Clamp(
-                    player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.Right) ? 1 : 0) - (keyboard.IsKeyDown(Keys.Left) ? 1 : 0)),
+                    player.velocity.X + PLAYER_ACCELERATION * ((keyboard.IsKeyDown(Keys.D) ? 1 : 0) - (keyboard.IsKeyDown(Keys.A) ? 1 : 0)),
                     -PLAYER_MAX_SPEED_X,
                     PLAYER_MAX_SPEED_X);
 
@@ -44,7 +44,7 @@ namespace GrapplingHook {
                         player.velocity.X = 0;
                     }
                     //Jumping
-                    if (keyboard.IsKeyDown(Keys.Up) && keyboardOld.IsKeyUp(Keys.Up)) {
+                    if (keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) {
                         player.velocity.Y = PLAYER_JUMP;
                         playerState = PlayerState.InAir;
                     }
@@ -59,6 +59,7 @@ namespace GrapplingHook {
                     }
                 }
 
+
                 //Vector2 nextPosition = player.Center + player.velocity;
                 //Vector2 nextRopeVector = (nextPosition - hook.Center);
                 //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
@@ -67,43 +68,8 @@ namespace GrapplingHook {
                     player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
                 else
                     player.velocity.Y += GRAVITY;
-
-
-                var windRight = false;
-                for (int i = 0; i < TilesRightWind.Count; i++) {
-                    var tile = TilesRightWind[i];
-                    if (player.Intersects(tile)) {
-                        windRight = true;
-                        break;
-                    }
-                }
-                var windLeft = false;
-                for (int i = 0; i < TilesLeftWind.Count; i++) {
-                    var tile = TilesLeftWind[i];
-                    if (player.Intersects(tile)) {
-                        windLeft = true;
-                        break;
-                    }
-                }
-                var windDown = false;
-                for (int i = 0; i < TilesDownWind.Count; i++) {
-                    var tile = TilesDownWind[i];
-                    if (player.Intersects(tile)) {
-                        windDown = true;
-                        break;
-                    }
-                }
-                var windUp = false;
-                for (int i = 0; i < TilesUpWind.Count; i++) {
-                    var tile = TilesUpWind[i];
-                    if (player.Intersects(tile)) {
-                        windUp = true;
-                        break;
-                    }
-                }
-
-                player.velocity.X += WIND_STRENGTH * ((windRight ? 1 : 0) - (windLeft ? 1 : 0));
-                player.velocity.Y += WIND_STRENGTH * ((windDown ? 1 : 0) - (windUp ? 1 : 0));
+                
+                //player.velocity.Y += GRAVITY;
 
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
@@ -148,20 +114,21 @@ namespace GrapplingHook {
                     var apple = Apples[i];
                     if (player.WillIntersect(apple)) {
                         Apples.RemoveAt(i);
+                        appleCount++;
                         return;
                     }
                 }
 
-                for (int i = 0; i < Moles.Count; i++) {
-                    var mole = Moles[i];
+                for (int i = 0; i < Grounders.Count; i++) {
+                    var mole = Grounders[i];
                     if (player.Intersects(mole)) {
                         PlayerDie();
                         return;
                     }
                 }
 
-                for (int i = 0; i < Birds.Count; i++) {
-                    var bird = Birds[i];
+                for (int i = 0; i < Flyer.Count; i++) {
+                    var bird = Flyer[i];
                     if (player.Intersects(bird)) {
                         PlayerDie();
                         return;
