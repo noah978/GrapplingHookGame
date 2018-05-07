@@ -35,17 +35,6 @@ namespace GrapplingHook {
                     -PLAYER_MAX_SPEED_X,
                     PLAYER_MAX_SPEED_X);
 
-                //adds wind adjustment
-                switch (windDir)
-                {
-                    case (Direction.Right):
-                        player.velocity.X += WIND_STRENGTH;
-                        break;
-                    case (Direction.Left):
-                        player.velocity.X -= WIND_STRENGTH;
-                        break;
-                }
-
                 if (playerState == PlayerState.OnGround) {
                     //Friction
                     if (player.velocity.X < -PLAYER_FRICTION_GROUND || player.velocity.X > PLAYER_FRICTION_GROUND) {
@@ -53,6 +42,7 @@ namespace GrapplingHook {
                     }
                     else {
                         player.velocity.X = 0;
+
                     }
                     //Jumping
                     if (keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) {
@@ -89,7 +79,9 @@ namespace GrapplingHook {
                         player.velocity *= velocityMagnitude;
                     }
                 }
-            
+
+                player.velocity.X += ApplyWind();
+
                 for (int i = 0; i < TilesSpike.Count; i++) {
                     var spike = TilesSpike[i];
                     if (player.Intersects(spike)) {
@@ -186,8 +178,8 @@ namespace GrapplingHook {
                         ChangeLevel(level);
                     }
                 }
-
                 player.position += player.velocity;
+                player.velocity.X -= ApplyWind();
             } else {
                 deathTimer -= 1f;
                 if (deathTimer <= 0) {
@@ -196,6 +188,20 @@ namespace GrapplingHook {
             }
 
             
+        }
+
+        public float ApplyWind()
+        {
+            //adds wind adjustment
+            switch (windDir)
+            {
+                case (Direction.Right):
+                    return WIND_STRENGTH;
+                case (Direction.Left):
+                    return -1 * WIND_STRENGTH;
+                default:
+                    return 0;
+            }
         }
 
         public void DrawPlayer() {
