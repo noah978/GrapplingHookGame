@@ -26,6 +26,7 @@ namespace GrapplingHook {
         public void PlayerDie() {
             playerState = PlayerState.Dead;
             deathTimer = PLAYER_DEATH_TIMER;
+            hookState = HookState.Inactive;
         }
 
         public void UpdatePlayer() {
@@ -59,7 +60,6 @@ namespace GrapplingHook {
                     }
                 }
 
-
                 //Vector2 nextPosition = player.Center + player.velocity;
                 //Vector2 nextRopeVector = (nextPosition - hook.Center);
                 //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
@@ -68,8 +68,6 @@ namespace GrapplingHook {
                     player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
                 else
                     player.velocity.Y += GRAVITY;
-                
-                //player.velocity.Y += GRAVITY;
 
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
@@ -100,6 +98,24 @@ namespace GrapplingHook {
                         int sub = (Math.Atan2(player.velocity.Y, player.velocity.X) < angle) ? -1 : 1;
                         player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + (player.velocity.Length() * sub));
                     }*/
+                }
+
+                //Change rope length
+                if (hookState == HookState.Hooked)
+                {
+                    if (keyboard.IsKeyDown(Keys.W) && ropeLength > 16)
+                    {
+                        ropeLength -= 1;
+                        Vector2 offsetFromHook = player.Center - hook.Center;
+                        if (offsetFromHook.Length() > ropeLength)
+                        {
+                            offsetFromHook = offsetFromHook * -1;
+                            offsetFromHook.Normalize();
+                            player.velocity += offsetFromHook * 0.5f;
+                        }
+                    }
+                    else if (keyboard.IsKeyDown(Keys.S) && ropeLength < HOOK_MAX_LENGTH)
+                        ropeLength += 1;
                 }
 
                 for (int i = 0; i < TilesSpike.Count; i++) {

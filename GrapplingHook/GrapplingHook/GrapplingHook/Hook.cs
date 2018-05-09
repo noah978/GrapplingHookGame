@@ -46,7 +46,7 @@ namespace GrapplingHook
             }
 
             //Throw hook if left-click is pressed
-            if (mouse.LeftButton == ButtonState.Pressed && mouseOld.LeftButton == ButtonState.Released)
+            if (playerState != PlayerState.Dead && mouse.LeftButton == ButtonState.Pressed && mouseOld.LeftButton == ButtonState.Released)
             {
                 hook.position = player.Center - new Vector2(hook.bounds.X / 2, hook.bounds.Y / 2);
                 Vector2 distanceVector = new Vector2((mouse.X / 2) - player.Center.X, (mouse.Y / 2) - player.Center.Y);
@@ -62,9 +62,18 @@ namespace GrapplingHook
                 {
                     if (hook.WillIntersect(tile))
                     {
-                        hook.position += hook.velocity;
-                        hookState = HookState.Hooked;
-                        ropeLength = Distance(hook.Center.X, hook.Center.Y, player.Center.X, player.Center.Y);
+                        int x = (int)(tile.position.X / TILE_WIDTH);
+                        int y = (int)(tile.position.Y / TILE_HEIGHT);
+                        if (tilemap[x, y] != Tile.NoGrapple)
+                        {
+                            hook.position += hook.velocity;
+                            hookState = HookState.Hooked;
+                            ropeLength = Distance(hook.Center.X, hook.Center.Y, player.Center.X, player.Center.Y);
+                        } else
+                        {
+                            hook.position = new Vector2(-1, -1);
+                            hookState = HookState.Inactive;
+                        }
                         break;
                     }
                 }
