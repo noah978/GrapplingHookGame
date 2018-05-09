@@ -18,7 +18,6 @@ namespace GrapplingHook
     {
         //Logic
         GameState state;
-        
 
         //Graphics
         GraphicsDeviceManager graphics;
@@ -54,7 +53,7 @@ namespace GrapplingHook
             base.Initialize(); //Calls LoadContent
 
             //Logic
-            state = GameState.Level;
+            state = GameState.Title;
             level = 0;
 
             //Graphics
@@ -77,6 +76,7 @@ namespace GrapplingHook
 
             IsMouseVisible = true;
 
+            CreateTitleScreen();
             ChangeLevel(level);
         }
         
@@ -96,10 +96,13 @@ namespace GrapplingHook
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
+            titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
             texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
             texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
+            texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
+
         }
         
         protected override void UnloadContent() {}
@@ -125,12 +128,13 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
+                    if ((gamepad.Buttons.Back == ButtonState.Pressed && gamepadOld.Buttons.Back == ButtonState.Pressed) || (keyboard.IsKeyDown(Keys.Escape) && keyboardOld.IsKeyDown(Keys.Escape)))
                         this.Exit();
-                    
+                    UpdateTitleScreen();
                     break;
                 case GameState.Options:
-                    
+                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
+                        state = GameState.Title;
                     break;
                 case GameState.Level:
                     UpdatePlayer();
@@ -160,7 +164,7 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-                    DrawTiles();
+                    DrawTitleScreen();
                     //DrawCharacters();
                     break;
                 case GameState.Options:
@@ -224,7 +228,6 @@ namespace GrapplingHook
             spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
             spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
         }
-
 
     }
 }
