@@ -78,6 +78,14 @@
       <Name>00</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\levelE00.dat">
+      <Name>levelE00</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE01.dat">
+      <Name>levelE01</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\test2.dat">
       <Name>test2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
