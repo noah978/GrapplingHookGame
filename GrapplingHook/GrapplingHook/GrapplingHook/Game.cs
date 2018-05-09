@@ -237,7 +237,7 @@ namespace GrapplingHook
         }
 
         public void DrawGUI() {
-            spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
+            spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
             spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
         }
 
