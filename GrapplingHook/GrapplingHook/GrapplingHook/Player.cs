@@ -26,6 +26,7 @@ namespace GrapplingHook {
         public void PlayerDie() {
             playerState = PlayerState.Dead;
             deathTimer = PLAYER_DEATH_TIMER;
+            hookState = HookState.Inactive;
         }
 
         public void UpdatePlayer() {
@@ -42,6 +43,7 @@ namespace GrapplingHook {
                     }
                     else {
                         player.velocity.X = 0;
+
                     }
                     //Jumping
                     if (keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) {
@@ -58,9 +60,18 @@ namespace GrapplingHook {
                         player.velocity.X = 0;
                     }
                 }
-                
-                player.velocity.Y += GRAVITY;
-                
+
+                //Vector2 nextPosition = player.Center + player.velocity;
+                //Vector2 nextRopeVector = (nextPosition - hook.Center);
+                //if (hookState != HookState.Hooked || nextRopeVector.Length() < ropeLength || player.Center.Y <= hook.Center.Y)
+                if (hookState == HookState.Hooked)
+                    //player.velocity.Y += GRAVITY * (float)Math.Pow(1 - (1 / ropeLength), (player.Center.Y - hook.Center.Y) - ropeLength);
+                    player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
+                else
+                    player.velocity.Y += GRAVITY;
+
+                player.velocity.X += ( playerState == PlayerState.GrappleOut ? ApplyWind() * 0.5f : (playerState == PlayerState.InAir ? ApplyWind() * 1.5f : ApplyWind() ) );
+
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
                 {
@@ -77,8 +88,39 @@ namespace GrapplingHook {
                         player.velocity.Normalize();
                         player.velocity *= velocityMagnitude;
                     }
+                    /*if(nextRopeVector.Length() >= ropeLength)
+                    {
+                        Vector2 ropeVector = player.Center - hook.Center;
+                        double theta = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        double forceMagnitude = Math.Sin(theta) * GRAVITY;
+                        double angle = Math.Atan2(ropeVector.Y, ropeVector.X);
+                        if (angle < Math.PI / 2 || angle >= Math.PI * 3 / 2)
+                            angle += Math.PI / 2;
+                        else
+                            angle -= Math.PI / 2;
+                        int sub = (Math.Atan2(player.velocity.Y, player.velocity.X) < angle) ? -1 : 1;
+                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + (player.velocity.Length() * sub));
+                    }*/
                 }
-            
+
+                //Change rope length
+                if (hookState == HookState.Hooked)
+                {
+                    if (keyboard.IsKeyDown(Keys.W) && ropeLength > 16)
+                    {
+                        ropeLength -= 1;
+                        Vector2 offsetFromHook = player.Center - hook.Center;
+                        if (offsetFromHook.Length() > ropeLength)
+                        {
+                            offsetFromHook = offsetFromHook * -1;
+                            offsetFromHook.Normalize();
+                            player.velocity += offsetFromHook * 0.5f;
+                        }
+                    }
+                    else if (keyboard.IsKeyDown(Keys.S) && ropeLength < HOOK_MAX_LENGTH)
+                        ropeLength += 1;
+                }
+
                 for (int i = 0; i < TilesSpike.Count; i++) {
                     var spike = TilesSpike[i];
                     if (player.Intersects(spike)) {
@@ -175,13 +217,28 @@ namespace GrapplingHook {
                         ChangeLevel(level);
                     }
                 }
-
                 player.position += player.velocity;
+                player.velocity.X -= ApplyWind();
             } else {
                 deathTimer -= 1f;
                 if (deathTimer <= 0) {
                     ResetLevel();
                 }
+            }
+
+        }
+
+        public float ApplyWind()
+        {
+            //adds wind adjustment
+            switch (windDir)
+            {
+                case (Direction.Right):
+                    return WIND_STRENGTH;
+                case (Direction.Left):
+                    return -1 * WIND_STRENGTH;
+                default:
+                    return 0;
             }
         }
 
