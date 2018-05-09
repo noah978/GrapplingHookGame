@@ -61,7 +61,9 @@ namespace GrapplingHook {
                 }
                 
                 player.velocity.Y += GRAVITY;
-                
+
+                player.velocity.X += ( playerState == PlayerState.GrappleOut ? ApplyWind() * 0.5f : (playerState == PlayerState.InAir ? ApplyWind() * 1.5f : ApplyWind() ) );
+
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
                 {
@@ -80,7 +82,6 @@ namespace GrapplingHook {
                     }
                 }
 
-                player.velocity.X += ApplyWind();
 
                 for (int i = 0; i < TilesSpike.Count; i++) {
                     var spike = TilesSpike[i];
