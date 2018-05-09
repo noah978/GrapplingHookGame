@@ -174,7 +174,7 @@ namespace GrapplingHook
                     DrawTiles();
                     DrawEnemies();
                     DrawApples();
-                    //DrawParticles();
+                    DrawParticles();
                     DrawPlayer();
                     DrawHook();
                     DrawGUI();
@@ -222,6 +222,18 @@ namespace GrapplingHook
         public void DrawEnemies() {
             DrawGrounders();
             DrawFlyers();
+        }
+
+        public void DrawParticles()
+        {
+            switch (state)
+            {
+                case GameState.Level:
+                    Random random = new Random();
+                    DrawWind(random.Next());
+                    break;
+
+            }
         }
 
         public void DrawGUI() {

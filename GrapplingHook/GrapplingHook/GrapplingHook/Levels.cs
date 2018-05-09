@@ -158,6 +158,10 @@ namespace GrapplingHook {
                 }
             }
         }
-        
+
+        public void DrawWind(int r)
+        {
+
+        }
     }
 }

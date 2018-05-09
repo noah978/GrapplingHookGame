@@ -16,6 +16,7 @@ namespace GrapplingHook.Logic
         Spike,
         Apple,
         Grounder,
-        Flyer
+        Flyer,
+        Sneaker
     }
 }
