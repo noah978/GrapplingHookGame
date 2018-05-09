@@ -69,11 +69,8 @@ namespace GrapplingHook {
                     player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
                 else
                     player.velocity.Y += GRAVITY;
-<<<<<<< HEAD
 
                 player.velocity.X += ( playerState == PlayerState.GrappleOut ? ApplyWind() * 0.5f : (playerState == PlayerState.InAir ? ApplyWind() * 1.5f : ApplyWind() ) );
-=======
->>>>>>> origin/shatteredtesseract
 
                 //Handle rope tension
                 if (hookState == HookState.Hooked)

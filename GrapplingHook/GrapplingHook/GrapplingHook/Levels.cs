@@ -160,7 +160,7 @@ namespace GrapplingHook {
             }
         }
 
-        public void DrawWind()
+        public void DrawWind(int r)
         {
 
         }
