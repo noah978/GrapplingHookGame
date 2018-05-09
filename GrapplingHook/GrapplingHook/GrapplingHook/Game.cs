@@ -173,7 +173,6 @@ namespace GrapplingHook
                     //DrawParticles();
                     DrawPlayer();
                     DrawHook();
-                    DrawWind();
                     DrawGUI();
                     break;
                 case GameState.Pause:
