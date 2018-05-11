@@ -74,6 +74,8 @@ namespace GrapplingHook
 
             Grounders = new List<Mobile>();
             Flyer = new List<Mobile>();
+            Sneakers = new List<Hitbox>();
+            SneakerTimers = new List<int>();
 
             IsMouseVisible = true;
 
@@ -85,21 +87,23 @@ namespace GrapplingHook
             //Let's try to only put file loading and actual Content.Load calls here
             texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
             texTileGoal = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Goal");
-            texTileWallRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Wall");
-            texTileOneWayPlatformRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "OneWayPlatform");
-            texTileNoGrappleRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "NoGrapple");
-            texTileWallTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Wall");
-            texTileOneWayPlatformTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "OneWayPlatform");
-            texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "NoGrapple");
-            texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Spike");
-            texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Spike");
+            texTileWallRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "Wall");
+            texTileOneWayPlatformRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "OneWayPlatform");
+            texTileNoGrappleRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "NoGrapple");
+            texTileWallTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "Wall");
+            texTileOneWayPlatformTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "OneWayPlatform");
+            texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "NoGrapple");
+            texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "Spike");
+            texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "Spike");
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
-            texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
-            texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
-            texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
+            texMole = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Flyer\" + "Bird");
+            texWorm = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Worm");
+            texSpider = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Spider");
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
+            texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
         }
         
         protected override void UnloadContent() {}
@@ -167,8 +171,8 @@ namespace GrapplingHook
                     //DrawSoundOptions();
                     break;
                 case GameState.Level:
-                    DrawTiles();
                     DrawEnemies();
+                    DrawTiles();
                     DrawApples();
                     //DrawParticles();
                     DrawPlayer();
@@ -213,11 +217,13 @@ namespace GrapplingHook
         public void UpdateEnemies() {
             UpdateGrounders();
             UpdateFlyers();
+            UpdateSneakers();
         }
 
         public void DrawEnemies() {
             DrawGrounders();
             DrawFlyers();
+            DrawSneakers();
         }
 
         public void DrawGUI() {
