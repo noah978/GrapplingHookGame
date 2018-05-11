@@ -18,7 +18,6 @@ namespace GrapplingHook
     {
         //Logic
         GameState state;
-        
 
         //Graphics
         GraphicsDeviceManager graphics;
@@ -54,7 +53,7 @@ namespace GrapplingHook
             base.Initialize(); //Calls LoadContent
 
             //Logic
-            state = GameState.Level;
+            state = GameState.Title;
             level = 0;
 
             //Graphics
@@ -79,6 +78,7 @@ namespace GrapplingHook
 
             IsMouseVisible = true;
 
+            CreateTitleScreen();
             ChangeLevel(level);
         }
         
@@ -104,6 +104,7 @@ namespace GrapplingHook
             texSpider = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Spider");
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
             texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
+            texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
         }
         
         protected override void UnloadContent() {}
@@ -129,12 +130,13 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
+                    if ((gamepad.Buttons.Back == ButtonState.Pressed && gamepadOld.Buttons.Back == ButtonState.Pressed) || (keyboard.IsKeyDown(Keys.Escape) && keyboardOld.IsKeyDown(Keys.Escape)))
                         this.Exit();
-                    
+                    UpdateTitleScreen();
                     break;
                 case GameState.Options:
-                    
+                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
+                        state = GameState.Title;
                     break;
                 case GameState.Level:
                     UpdatePlayer();
@@ -164,7 +166,7 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Title:
-                    DrawTiles();
+                    DrawTitleScreen();
                     //DrawCharacters();
                     break;
                 case GameState.Options:
@@ -174,7 +176,7 @@ namespace GrapplingHook
                     DrawEnemies();
                     DrawTiles();
                     DrawApples();
-                    //DrawParticles();
+                    DrawParticles();
                     DrawPlayer();
                     DrawHook();
                     DrawGUI();
@@ -226,11 +228,22 @@ namespace GrapplingHook
             DrawSneakers();
         }
 
-        public void DrawGUI() {
-            spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
-            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+        public void DrawParticles()
+        {
+            switch (state)
+            {
+                case GameState.Level:
+                    Random random = new Random();
+                    DrawWind(random.Next());
+                    break;
+
+            }
         }
 
+        public void DrawGUI() {
+            spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
+            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+        }
 
     }
 }

@@ -132,7 +132,6 @@ namespace GrapplingHook {
                     }
         }
 
-
         public void DrawTiles() {
             for (var i = 0; i < LEVEL_WIDTH; i++) {
                 var position = new Vector2(i * TILE_WIDTH, 0);
@@ -165,6 +164,10 @@ namespace GrapplingHook {
                 }
             }
         }
-        
+
+        public void DrawWind(int r)
+        {
+
+        }
     }
 }
