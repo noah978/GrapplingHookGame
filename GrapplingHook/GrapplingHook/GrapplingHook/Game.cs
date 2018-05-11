@@ -103,7 +103,6 @@ namespace GrapplingHook
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
-<<<<<<< HEAD
             titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
             texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
@@ -111,9 +110,6 @@ namespace GrapplingHook
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
             texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
             texWind = Content.Load<Texture2D>(@"Textures\" + @"Particles\" + "Wind");
-=======
->>>>>>> master
-
             texMole = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Flyer\" + "Bird");
             texWorm = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Worm");

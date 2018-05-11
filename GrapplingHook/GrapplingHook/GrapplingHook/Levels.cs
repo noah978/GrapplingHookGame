@@ -92,13 +92,9 @@ namespace GrapplingHook {
             Apples.Clear();
             Grounders.Clear();
             Flyer.Clear();
-<<<<<<< HEAD
             windRs.Clear();
-=======
             Sneakers.Clear();
-            SneakerTimers.Clear();
->>>>>>> master
-            windDir = Direction.None;
+            SneakerTimers.Clear();            windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
