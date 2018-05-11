@@ -86,6 +86,22 @@
       <Name>levelE01</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\levelE02.dat">
+      <Name>levelE02</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE03.dat">
+      <Name>levelE03</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE04.dat">
+      <Name>levelE04</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelTransition.dat">
+      <Name>levelTransition</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\test2.dat">
       <Name>test2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
