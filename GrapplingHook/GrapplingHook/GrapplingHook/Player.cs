@@ -43,6 +43,7 @@ namespace GrapplingHook {
                     }
                     else {
                         player.velocity.X = 0;
+
                     }
                     //Jumping
                     if (keyboard.IsKeyDown(Keys.Space) && keyboardOld.IsKeyUp(Keys.Space)) {
@@ -68,6 +69,8 @@ namespace GrapplingHook {
                     player.velocity.Y += GRAVITY * (float)(-((HOOK_GRAVITY_MULTIPLIER-1)/ropeLength)* (player.Center.Y - hook.Center.Y) + HOOK_GRAVITY_MULTIPLIER);
                 else
                     player.velocity.Y += GRAVITY;
+
+                player.velocity.X += ( playerState == PlayerState.GrappleOut ? ApplyWind() * 0.5f : (playerState == PlayerState.InAir ? ApplyWind() * 1.5f : ApplyWind() ) );
 
                 //Handle rope tension
                 if (hookState == HookState.Hooked)
@@ -214,13 +217,28 @@ namespace GrapplingHook {
                         ChangeLevel(level);
                     }
                 }
-
                 player.position += player.velocity;
+                player.velocity.X -= ApplyWind();
             } else {
                 deathTimer -= 1f;
                 if (deathTimer <= 0) {
                     ResetLevel();
                 }
+            }
+
+        }
+
+        public float ApplyWind()
+        {
+            //adds wind adjustment
+            switch (windDir)
+            {
+                case (Direction.Right):
+                    return WIND_STRENGTH;
+                case (Direction.Left):
+                    return -1 * WIND_STRENGTH;
+                default:
+                    return 0;
             }
         }
 
