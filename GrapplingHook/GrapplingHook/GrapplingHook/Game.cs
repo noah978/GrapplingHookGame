@@ -98,13 +98,16 @@ namespace GrapplingHook
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
+
             texMole = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Flyer\" + "Bird");
             texWorm = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Worm");
             texSpider = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Spider");
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
             texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
-            texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
+            titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
+            texButton = Content.Load<Texture2D>(@"Textures\" +@"Interface\" + "Button");
+            
         }
         
         protected override void UnloadContent() {}
