@@ -79,6 +79,7 @@ namespace GrapplingHook
             IsMouseVisible = true;
 
             CreateTitleScreen();
+            CreateOptionsScreen();
             ChangeLevel(level);
         }
         
@@ -138,8 +139,7 @@ namespace GrapplingHook
                     UpdateTitleScreen();
                     break;
                 case GameState.Options:
-                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
-                        state = GameState.Title;
+                    UpdateOptionsScreen();
                     break;
                 case GameState.Level:
                     UpdatePlayer();
@@ -173,7 +173,7 @@ namespace GrapplingHook
                     //DrawCharacters();
                     break;
                 case GameState.Options:
-                    //DrawSoundOptions();
+                    DrawOptions();
                     break;
                 case GameState.Level:
                     DrawEnemies();
