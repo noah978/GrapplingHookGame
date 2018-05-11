@@ -92,7 +92,12 @@ namespace GrapplingHook {
             Apples.Clear();
             Grounders.Clear();
             Flyer.Clear();
+<<<<<<< HEAD
             windRs.Clear();
+=======
+            Sneakers.Clear();
+            SneakerTimers.Clear();
+>>>>>>> master
             windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
@@ -124,6 +129,10 @@ namespace GrapplingHook {
                             break;
                         case Tile.Flyer:
                             Flyer.Add(new Mobile(i * 16, j * 16, FLYER_SPEED, 0, 16, 16));
+                            break;
+                        case Tile.Sneaker:
+                            Sneakers.Add(new Hitbox(i * 16, j * 16, 16, 16));
+                            SneakerTimers.Add(-1);
                             break;
                     }
         }
