@@ -34,6 +34,8 @@ namespace GrapplingHook
         MouseState mouseOld;
 
         int appleCount;
+        List<Rectangle> windRs;
+        int windTimer;
 
         SpriteFont font;
 
@@ -51,6 +53,9 @@ namespace GrapplingHook
             graphics.ApplyChanges();
 
             base.Initialize(); //Calls LoadContent
+
+            windTimer = 0;
+            windRs = new List<Rectangle>();
 
             //Logic
             state = GameState.Title;
@@ -102,6 +107,7 @@ namespace GrapplingHook
             texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
             texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
+            texWind = Content.Load<Texture2D>(@"Textures\" + @"Particles\" + "Wind");
 
         }
         
@@ -140,6 +146,7 @@ namespace GrapplingHook
                     UpdatePlayer();
                     UpdateHook();
                     UpdateEnemies();
+                    UpdateWind();
                     break;
                 case GameState.Pause:
                     
@@ -174,6 +181,11 @@ namespace GrapplingHook
                     DrawTiles();
                     DrawEnemies();
                     DrawApples();
+                    if (!(windDir == Direction.None) && (windTimer % 15 == 0))
+                    {
+                        Random random = new Random();
+                        AddWindParticle(random);
+                    }
                     DrawParticles();
                     DrawPlayer();
                     DrawHook();
@@ -200,6 +212,11 @@ namespace GrapplingHook
                     //DrawLetterbox();
                     break;
             }
+
+            if (windTimer < 60)
+                windTimer++;
+            else
+                windTimer = 0;
 
             spriteBatch.End();
             
@@ -229,8 +246,7 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Level:
-                    Random random = new Random();
-                    DrawWind(random.Next());
+                    DrawWind(windRs);
                     break;
 
             }

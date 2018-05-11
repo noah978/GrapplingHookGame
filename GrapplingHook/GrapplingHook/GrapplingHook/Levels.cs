@@ -24,7 +24,8 @@ namespace GrapplingHook {
             texTileNoGrappleRavine,
             texTileNoGrappleTower,
             texTileSpikeRavine,
-            texTileSpikeTower;
+            texTileSpikeTower,
+            texWind;
 
         string[] levelNames;
         int level;
@@ -74,8 +75,8 @@ namespace GrapplingHook {
                 file.ReadLine();
             char wind = ((file.ReadLine()).ToCharArray()[0]);
             switch (wind)
-            {
-                case 'L':
+            {  
+                case 'L': 
                     return Direction.Left;
                 case 'R':
                     return Direction.Right;
@@ -91,6 +92,7 @@ namespace GrapplingHook {
             Apples.Clear();
             Grounders.Clear();
             Flyer.Clear();
+            windRs.Clear();
             windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
@@ -158,10 +160,45 @@ namespace GrapplingHook {
                 }
             }
         }
-
-        public void DrawWind(int r)
+        public void AddWindParticle(Random rand)
         {
+            switch (windDir)
+            {
+                case Direction.Right:
+                    windRs.Add(new Rectangle(-20, rand.Next(10, VIEWPORT_HEIGHT - 10), 20, 2));
+                    break;
+                case Direction.Left:
+                    windRs.Add(new Rectangle(VIEWPORT_WIDTH, rand.Next(10, VIEWPORT_HEIGHT - 10), 20, 2));
+                    break;
+            }
+        }
+        public void UpdateWind()
+        {
+            for (int i = 0; i < windRs.Count; i++)
+            {
+                if (windRs[i].X < -20 || windRs[i].X > VIEWPORT_WIDTH)
+                    windRs.RemoveAt(i);
+            }
+            for (int i = 0; i < windRs.Count; i++)
+            {
+                switch (windDir)
+                {
+                    case Direction.Right:
+                        windRs[i] = new Rectangle(windRs[i].X + (int)Math.Round(WIND_STRENGTH * 4), windRs[i].Y, 20, 2);
+                        break;
+                    case Direction.Left:
+                        windRs[i] = new Rectangle(windRs[i].X - (int)Math.Round(WIND_STRENGTH * 4), windRs[i].Y, 20, 2);
+                        break;
+                }
+            }
+        }
 
+        public void DrawWind(List<Rectangle> rs)
+        {
+            foreach (Rectangle r in windRs)
+            {
+                spriteBatch.Draw(texWind, r, Color.WhiteSmoke);
+            }
         }
     }
 }
