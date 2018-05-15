@@ -176,7 +176,10 @@ namespace GrapplingHook
         
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            if (levelType == LevelType.Ravine)
+                GraphicsDevice.Clear(new Color(153, 204, 255));
+            else
+                GraphicsDevice.Clear(new Color(0, 89, 179));
 
             var matrix = Matrix.CreateScale(2);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, matrix);
