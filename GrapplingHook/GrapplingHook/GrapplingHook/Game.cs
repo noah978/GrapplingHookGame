@@ -194,6 +194,8 @@ namespace GrapplingHook
                     DrawOptions();
                     break;
                 case GameState.Level:
+                    if (!IsActive)
+                        state = GameState.Pause;
                     DrawEnemies();
                     DrawTiles();
                     DrawApples();
@@ -211,6 +213,11 @@ namespace GrapplingHook
                     //DrawParticles();
                     //DrawPlayer();
                     //DrawSoundOptions();
+
+                    //comment out once we get a functional pause menu:
+                    if (IsActive)
+                        state = GameState.Level;
+
                     break;
                 case GameState.Cutscene:
                     DrawTiles();
