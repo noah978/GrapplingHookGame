@@ -35,6 +35,7 @@ namespace GrapplingHook {
         }
 
         public void DrawOptions() {
+            GraphicsDevice.Clear(Color.White);
             foreach (Button b in OptionsButtons) {
                 spriteBatch.Draw(texButton, b.borderRect, b.borderColor);
                 spriteBatch.Draw(texButton, b.solidRect, b.solidColor);
