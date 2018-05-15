@@ -34,8 +34,12 @@ namespace GrapplingHook
         MouseState mouseOld;
 
         int appleCount;
+        List<Rectangle> windRs;
+        int windTimer;
 
         SpriteFont font;
+
+        Random random;
 
         public Game()
         {
@@ -52,9 +56,13 @@ namespace GrapplingHook
 
             base.Initialize(); //Calls LoadContent
 
+            windTimer = 0;
+            windRs = new List<Rectangle>();
+
             //Logic
             state = GameState.Title;
             level = 0;
+            random = new Random();
 
             //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -99,7 +107,13 @@ namespace GrapplingHook
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
-
+            titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
+            texMole = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Bird");
+            texSpider = Content.Load<Texture2D>(@"Textures\Enemies\Grounder\" + "Spider");
+            texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
+            texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
+            texWind = Content.Load<Texture2D>(@"Textures\" + @"Particles\" + "Wind");
             texMole = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Mole");
             texBird = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Flyer\" + "Bird");
             texWorm = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Worm");
@@ -145,6 +159,7 @@ namespace GrapplingHook
                     UpdatePlayer();
                     UpdateHook();
                     UpdateEnemies();
+                    UpdateWind();
                     break;
                 case GameState.Pause:
                     
@@ -179,6 +194,8 @@ namespace GrapplingHook
                     DrawEnemies();
                     DrawTiles();
                     DrawApples();
+                    if (!(windDir == Direction.None) && (windTimer % 15 == 0))
+                        AddWindParticle(random);
                     DrawParticles();
                     DrawPlayer();
                     DrawHook();
@@ -205,6 +222,11 @@ namespace GrapplingHook
                     //DrawLetterbox();
                     break;
             }
+
+            if (windTimer < 60)
+                windTimer++;
+            else
+                windTimer = 0;
 
             spriteBatch.End();
             
@@ -236,8 +258,7 @@ namespace GrapplingHook
             switch (state)
             {
                 case GameState.Level:
-                    Random random = new Random();
-                    DrawWind(random.Next());
+                    DrawWind(windRs);
                     break;
 
             }
