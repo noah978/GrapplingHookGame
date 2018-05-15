@@ -175,7 +175,10 @@ namespace GrapplingHook
         
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            if (levelType == LevelType.Ravine)
+                GraphicsDevice.Clear(new Color(153, 204, 255));
+            else
+                GraphicsDevice.Clear(new Color(0, 89, 179));
 
             var matrix = Matrix.CreateScale(2);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, matrix);
@@ -190,6 +193,8 @@ namespace GrapplingHook
                     DrawOptions();
                     break;
                 case GameState.Level:
+                    if (!IsActive)
+                        state = GameState.Pause;
                     DrawEnemies();
                     DrawTiles();
                     DrawApples();
@@ -207,6 +212,11 @@ namespace GrapplingHook
                     //DrawParticles();
                     //DrawPlayer();
                     //DrawSoundOptions();
+
+                    //comment out once we get a functional pause menu:
+                    if (IsActive)
+                        state = GameState.Level;
+
                     break;
                 case GameState.Cutscene:
                     DrawTiles();
