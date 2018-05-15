@@ -39,6 +39,8 @@ namespace GrapplingHook
 
         SpriteFont font;
 
+        Random random;
+
         public Game()
         {
             //Let's try not to add anything here
@@ -60,6 +62,7 @@ namespace GrapplingHook
             //Logic
             state = GameState.Title;
             level = 0;
+            random = new Random();
 
             //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -192,10 +195,7 @@ namespace GrapplingHook
                     DrawTiles();
                     DrawApples();
                     if (!(windDir == Direction.None) && (windTimer % 15 == 0))
-                    {
-                        Random random = new Random();
                         AddWindParticle(random);
-                    }
                     DrawParticles();
                     DrawPlayer();
                     DrawHook();
