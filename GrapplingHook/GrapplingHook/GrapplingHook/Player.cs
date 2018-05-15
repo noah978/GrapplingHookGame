@@ -27,6 +27,7 @@ namespace GrapplingHook {
             playerState = PlayerState.Dead;
             deathTimer = PLAYER_DEATH_TIMER;
             hookState = HookState.Inactive;
+            appleCount = 0;
         }
 
         public void UpdatePlayer() {

@@ -54,6 +54,8 @@ namespace GrapplingHook {
             tilemap = LoadTilemap(levelNames[id]);
             ResetLevel();
             windDir = LoadWind(levelNames[id]);
+            if (windDir != Direction.None)
+                PreLoadWind(random);
         }
 
         public Tile[,] LoadTilemap(string path) {
@@ -93,6 +95,8 @@ namespace GrapplingHook {
             Grounders.Clear();
             Flyer.Clear();
             windRs.Clear();
+            Sneakers.Clear();
+            SneakerTimers.Clear();
             windDir = Direction.None;
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
@@ -124,6 +128,10 @@ namespace GrapplingHook {
                             break;
                         case Tile.Flyer:
                             Flyer.Add(new Mobile(i * 16, j * 16, FLYER_SPEED, 0, 16, 16));
+                            break;
+                        case Tile.Sneaker:
+                            Sneakers.Add(new Hitbox(i * 16, j * 16, 16, 16));
+                            SneakerTimers.Add(-1);
                             break;
                     }
         }
@@ -198,6 +206,15 @@ namespace GrapplingHook {
             foreach (Rectangle r in windRs)
             {
                 spriteBatch.Draw(texWind, r, Color.WhiteSmoke);
+            }
+        }
+        public void PreLoadWind(Random rand)
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                AddWindParticle(rand);
+                for (int j = 0; j < 10; j++)
+                    UpdateWind();
             }
         }
     }

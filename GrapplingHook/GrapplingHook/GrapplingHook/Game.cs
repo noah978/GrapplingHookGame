@@ -39,6 +39,8 @@ namespace GrapplingHook
 
         SpriteFont font;
 
+        Random random;
+
         public Game()
         {
             //Let's try not to add anything here
@@ -60,6 +62,7 @@ namespace GrapplingHook
             //Logic
             state = GameState.Title;
             level = 0;
+            random = new Random();
 
             //Graphics
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -78,10 +81,13 @@ namespace GrapplingHook
 
             Grounders = new List<Mobile>();
             Flyer = new List<Mobile>();
+            Sneakers = new List<Hitbox>();
+            SneakerTimers = new List<int>();
 
             IsMouseVisible = true;
 
             CreateTitleScreen();
+            CreateOptionsScreen();
             ChangeLevel(level);
         }
         
@@ -90,14 +96,14 @@ namespace GrapplingHook
             //Let's try to only put file loading and actual Content.Load calls here
             texPlayer = Content.Load<Texture2D>(@"Textures\" + "Player");
             texTileGoal = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + "Goal");
-            texTileWallRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Wall");
-            texTileOneWayPlatformRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "OneWayPlatform");
-            texTileNoGrappleRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "NoGrapple");
-            texTileWallTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Wall");
-            texTileOneWayPlatformTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "OneWayPlatform");
-            texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "NoGrapple");
-            texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Ravine\" + "Spike");
-            texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\Tower\" + "Spike");
+            texTileWallRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "Wall");
+            texTileOneWayPlatformRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "OneWayPlatform");
+            texTileNoGrappleRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "NoGrapple");
+            texTileWallTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "Wall");
+            texTileOneWayPlatformTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "OneWayPlatform");
+            texTileNoGrappleTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "NoGrapple");
+            texTileSpikeRavine = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Ravine\" + "Spike");
+            texTileSpikeTower = Content.Load<Texture2D>(@"Textures\" + @"Tiles\" + @"Tower\" + "Spike");
             texHook = Content.Load<Texture2D>(@"Textures\" + "Hook");
             texApple = Content.Load<Texture2D>(@"Textures\" + "Apple");
             font = Content.Load<SpriteFont>(@"Fonts\" + "Font");
@@ -108,7 +114,14 @@ namespace GrapplingHook
             texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
             texButton = Content.Load<Texture2D>(@"Textures\Interface\" + "Button");
             texWind = Content.Load<Texture2D>(@"Textures\" + @"Particles\" + "Wind");
-
+            texMole = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Mole");
+            texBird = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Flyer\" + "Bird");
+            texWorm = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Worm");
+            texSpider = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Grounder\" + "Spider");
+            texEye = Content.Load<Texture2D>(@"Textures\Enemies\Flyer\" + "Eye");
+            texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
+            titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
+            texButton = Content.Load<Texture2D>(@"Textures\" +@"Interface\" + "Button");
         }
         
         protected override void UnloadContent() {}
@@ -139,8 +152,7 @@ namespace GrapplingHook
                     UpdateTitleScreen();
                     break;
                 case GameState.Options:
-                    if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
-                        state = GameState.Title;
+                    UpdateOptionsScreen();
                     break;
                 case GameState.Level:
                     UpdatePlayer();
@@ -175,17 +187,14 @@ namespace GrapplingHook
                     //DrawCharacters();
                     break;
                 case GameState.Options:
-                    //DrawSoundOptions();
+                    DrawOptions();
                     break;
                 case GameState.Level:
-                    DrawTiles();
                     DrawEnemies();
+                    DrawTiles();
                     DrawApples();
                     if (!(windDir == Direction.None) && (windTimer % 15 == 0))
-                    {
-                        Random random = new Random();
                         AddWindParticle(random);
-                    }
                     DrawParticles();
                     DrawPlayer();
                     DrawHook();
@@ -234,11 +243,24 @@ namespace GrapplingHook
         public void UpdateEnemies() {
             UpdateGrounders();
             UpdateFlyers();
+            UpdateSneakers();
         }
 
         public void DrawEnemies() {
             DrawGrounders();
             DrawFlyers();
+            DrawSneakers();
+        }
+
+        public void DrawParticles()
+        {
+            switch (state)
+            {
+                case GameState.Level:
+                    DrawWind(windRs);
+                    break;
+
+            }
         }
 
         public void DrawParticles()
@@ -253,7 +275,7 @@ namespace GrapplingHook
         }
 
         public void DrawGUI() {
-            spriteBatch.Draw(texApple, new Vector2(16, 16), Color.White);
+            spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
             spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
         }
 

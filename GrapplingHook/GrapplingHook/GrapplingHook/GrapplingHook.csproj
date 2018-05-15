@@ -72,6 +72,8 @@
     <Compile Include="Apple.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Options.cs" />
+    <Compile Include="Sneaker.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="Levels.cs" />
     <Compile Include="Logic\Direction.cs" />

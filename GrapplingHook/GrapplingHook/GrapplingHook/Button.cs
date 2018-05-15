@@ -11,9 +11,12 @@ namespace GrapplingHook
     {
         public Rectangle solidRect, borderRect;
         public Color solidColor, borderColor;
-        public String action;
+        public string text;
+        public ButtonAction action;
 
-        public Button(Rectangle solidRec, Rectangle borderRec, Color solid, Color border, String action)
+        public delegate void ButtonAction();
+
+        public Button(Rectangle solidRec, Rectangle borderRec, Color solid, Color border, string text, ButtonAction action)
         {
             solidRect = solidRec;
             borderRect = borderRec;
