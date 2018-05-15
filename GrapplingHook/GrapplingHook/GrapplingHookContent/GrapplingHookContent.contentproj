@@ -75,14 +75,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <None Include="Levels\01.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>01</Name>
-    </None>
-    <None Include="Levels\00.dat">
-      <Name>00</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Levels\levelE00.dat">
       <Name>levelE00</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -103,8 +95,16 @@
       <Name>levelE04</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Levels\levelTransition.dat">
-      <Name>levelTransition</Name>
+    <None Include="Levels\levelE05.dat">
+      <Name>levelE05</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE06.dat">
+      <Name>levelE06</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE07.dat">
+      <Name>levelE07</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Levels\test2.dat">
