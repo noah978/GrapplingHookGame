@@ -135,7 +135,7 @@ namespace GrapplingHook {
                     if (player.WillIntersect(apple)) {
                         Apples.RemoveAt(i);
                         appleCount++;
-                        return;
+                        break;
                     }
                 }
 
@@ -153,6 +153,12 @@ namespace GrapplingHook {
                         PlayerDie();
                         return;
                     }
+                }
+
+                if(player.Up >= VIEWPORT_HEIGHT + (TILE_HEIGHT * 4))
+                {
+                    PlayerDie();
+                    return;
                 }
                 
                 for (int i = 0; i < TilesSolid.Count; i++) {
@@ -217,6 +223,11 @@ namespace GrapplingHook {
                         level = (level + 1) % levelNames.Length;
                         ChangeLevel(level);
                     }
+                }
+                if(player.Down <= 0)
+                {
+                    level = (level + 1) % levelNames.Length;
+                    ChangeLevel(level);
                 }
                 player.position += player.velocity;
                 player.velocity.X -= ApplyWind();

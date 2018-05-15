@@ -208,7 +208,6 @@ namespace GrapplingHook {
                 spriteBatch.Draw(texWind, r, Color.WhiteSmoke);
             }
         }
-
         public void PreLoadWind(Random rand)
         {
             for (int i = 0; i < 15; i++)

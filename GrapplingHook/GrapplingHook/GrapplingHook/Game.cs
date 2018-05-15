@@ -122,7 +122,6 @@ namespace GrapplingHook
             texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
             titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
             texButton = Content.Load<Texture2D>(@"Textures\" +@"Interface\" + "Button");
-            
         }
         
         protected override void UnloadContent() {}
@@ -251,6 +250,17 @@ namespace GrapplingHook
             DrawGrounders();
             DrawFlyers();
             DrawSneakers();
+        }
+
+        public void DrawParticles()
+        {
+            switch (state)
+            {
+                case GameState.Level:
+                    DrawWind(windRs);
+                    break;
+
+            }
         }
 
         public void DrawParticles()
