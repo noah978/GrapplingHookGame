@@ -22,6 +22,7 @@ namespace GrapplingHook
             borderRect = borderRec;
             solidColor = solid;
             borderColor = border;
+            this.text = text;
             this.action = action;
         }
     }

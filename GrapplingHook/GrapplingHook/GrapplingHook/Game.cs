@@ -263,17 +263,6 @@ namespace GrapplingHook
             }
         }
 
-        public void DrawParticles()
-        {
-            switch (state)
-            {
-                case GameState.Level:
-                    DrawWind(windRs);
-                    break;
-
-            }
-        }
-
         public void DrawGUI() {
             spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
             spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
