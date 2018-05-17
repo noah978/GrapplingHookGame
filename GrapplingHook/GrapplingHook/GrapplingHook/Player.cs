@@ -219,10 +219,10 @@ namespace GrapplingHook {
                         playerState = PlayerState.InAir;
                     }
 
-                    if (player.Intersects(goal)) {
+                    /*if (player.Intersects(goal)) {
                         level = (level + 1) % levelNames.Length;
                         ChangeLevel(level);
-                    }
+                    }*/
                 }
                 if(player.Down <= 0)
                 {
