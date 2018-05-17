@@ -28,7 +28,7 @@ namespace GrapplingHook {
                     }
                 } else {
                     if (sneaker.Intersects(player)) {
-                        SneakerTimers[i] = 20;
+                        SneakerTimers[i] = 40;
                     }
                 }
             }
