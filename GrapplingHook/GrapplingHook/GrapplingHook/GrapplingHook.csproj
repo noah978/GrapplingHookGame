@@ -73,6 +73,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="Pause.cs" />
     <Compile Include="Sneaker.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="Levels.cs" />
