@@ -18,6 +18,7 @@ namespace GrapplingHook
     {
         //Logic
         GameState state;
+        GameState prevState;
 
         //Graphics
         GraphicsDeviceManager graphics;
@@ -61,6 +62,7 @@ namespace GrapplingHook
 
             //Logic
             state = GameState.Title;
+            prevState = GameState.Title;
             level = 0;
             random = new Random();
 
@@ -88,6 +90,7 @@ namespace GrapplingHook
 
             CreateTitleScreen();
             CreateOptionsScreen();
+            CreatePauseScreen();
             ChangeLevel(level);
         }
         
@@ -155,13 +158,15 @@ namespace GrapplingHook
                     UpdateOptionsScreen();
                     break;
                 case GameState.Level:
+                    if (keyboard.IsKeyDown(Keys.Escape))
+                        state = GameState.Pause;
                     UpdatePlayer();
                     UpdateHook();
                     UpdateEnemies();
                     UpdateWind();
                     break;
                 case GameState.Pause:
-                    
+                    UpdatePauseScreen();
                     break;
                 case GameState.Cutscene:
                     
@@ -193,8 +198,6 @@ namespace GrapplingHook
                     DrawOptions();
                     break;
                 case GameState.Level:
-                    if (!IsActive)
-                        state = GameState.Pause;
                     DrawEnemies();
                     DrawTiles();
                     DrawApples();
@@ -206,17 +209,17 @@ namespace GrapplingHook
                     DrawGUI();
                     break;
                 case GameState.Pause:
+                    DrawEnemies();
                     DrawTiles();
-                    //DrawEnemies();
-                    //DrawApples();
-                    //DrawParticles();
-                    //DrawPlayer();
-                    //DrawSoundOptions();
+                    DrawApples();
+                    if (!(windDir == Direction.None) && (windTimer % 15 == 0))
+                        AddWindParticle(random);
+                    DrawParticles();
+                    DrawPlayer();
+                    DrawHook();
+                    DrawGUI();
 
-                    //comment out once we get a functional pause menu:
-                    if (IsActive)
-                        state = GameState.Level;
-
+                    DrawPauseScreen();
                     break;
                 case GameState.Cutscene:
                     DrawTiles();

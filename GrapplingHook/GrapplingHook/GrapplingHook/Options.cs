@@ -21,7 +21,7 @@ namespace GrapplingHook {
             OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, (isMusicOn ? "Mute" : "Enable") + " Music", delegate () { isMusicOn = !isMusicOn; CreateOptionsScreen(); }));
 
             solidRect = new Rectangle(solidRect.X, solidRect.Y + 64, solidRect.Width, solidRect.Height);
-            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = Logic.GameState.Title; }));
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = prevState; }));
 
         }
         public void UpdateOptionsScreen() {
