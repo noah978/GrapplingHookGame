@@ -111,6 +111,18 @@
       <Name>levelE08</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\levelE09.dat">
+      <Name>levelE09</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE10.dat">
+      <Name>levelE10</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\levelE11.dat">
+      <Name>levelE11</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\test2.dat">
       <Name>test2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
