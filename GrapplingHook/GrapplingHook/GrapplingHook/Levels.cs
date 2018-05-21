@@ -99,12 +99,9 @@ namespace GrapplingHook {
             windRs.Clear();
             Sneakers.Clear();
             SneakerTimers.Clear();
-<<<<<<< HEAD
-            //windDir = Direction.None;
-=======
+
             if (windDir != Direction.None)
                 PreLoadWind(random);
->>>>>>> master
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
