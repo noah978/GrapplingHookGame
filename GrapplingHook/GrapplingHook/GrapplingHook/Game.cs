@@ -35,6 +35,7 @@ namespace GrapplingHook
         MouseState mouseOld;
 
         int appleCount;
+        int totalAppleCount;
         List<Rectangle> windRs;
         int windTimer;
 
@@ -71,7 +72,12 @@ namespace GrapplingHook
 
             texPixel = new Texture2D(GraphicsDevice, 1, 1);
             texPixel.SetData(new[] { Color.White });
-            
+
+            //Audio
+            isSoundEffectsOn = true;
+            isMusicOn = true;
+
+            //Levels
             levelNames = Directory.GetFiles(Content.RootDirectory + @"\Levels\");
             Array.Sort(levelNames);
 
@@ -278,7 +284,7 @@ namespace GrapplingHook
 
         public void DrawGUI() {
             spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
-            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+            spriteBatch.DrawString(font, "x " + (appleCount + totalAppleCount), new Vector2(28, 8), Color.White);
         }
 
     }
