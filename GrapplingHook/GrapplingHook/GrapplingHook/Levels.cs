@@ -52,10 +52,8 @@ namespace GrapplingHook {
                 levelType = LevelType.Boss;
 
             tilemap = LoadTilemap(levelNames[id]);
-            ResetLevel();
             windDir = LoadWind(levelNames[id]);
-            if (windDir != Direction.None)
-                PreLoadWind(random);
+            ResetLevel();
         }
 
         public Tile[,] LoadTilemap(string path) {
@@ -97,7 +95,8 @@ namespace GrapplingHook {
             windRs.Clear();
             Sneakers.Clear();
             SneakerTimers.Clear();
-            windDir = Direction.None;
+            if (windDir != Direction.None)
+                PreLoadWind(random);
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)

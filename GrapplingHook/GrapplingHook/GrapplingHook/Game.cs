@@ -164,6 +164,8 @@ namespace GrapplingHook
                     UpdateHook();
                     UpdateEnemies();
                     UpdateWind();
+                    if (!IsActive)
+                        state = GameState.Pause;
                     break;
                 case GameState.Pause:
                     UpdatePauseScreen();
