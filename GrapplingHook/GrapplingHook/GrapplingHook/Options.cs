@@ -8,19 +8,20 @@ using Microsoft.Xna.Framework.Input;
 namespace GrapplingHook {
     partial class Game {
         List<Button> OptionsButtons;
+        Boolean isSoundEffectsOn = true, isMusicOn = true;
         
         public void CreateOptionsScreen() {
             OptionsButtons = new List<Button>();
             int numButtons = 2, spacing = (VIEWPORT_WIDTH - 50) / numButtons;
             OptionsButtons = new List<Button>();
             Rectangle solidRect = new Rectangle(90 / numButtons, VIEWPORT_HEIGHT - 200, 200 / numButtons, 40);
-            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Mute SFX", delegate () { /**/ }));
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, (isSoundEffectsOn ? "Mute" : "Enable") + " SFX", delegate () { isSoundEffectsOn = !isSoundEffectsOn; CreateOptionsScreen(); }));
 
             solidRect = new Rectangle(solidRect.X + spacing, solidRect.Y, solidRect.Width, solidRect.Height);
-            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Mute Music", delegate () { /**/ }));
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, (isMusicOn ? "Mute" : "Enable") + " Music", delegate () { isMusicOn = !isMusicOn; CreateOptionsScreen(); }));
 
             solidRect = new Rectangle(solidRect.X, solidRect.Y + 64, solidRect.Width, solidRect.Height);
-            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = Logic.GameState.Title; }));
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = prevState; }));
 
         }
         public void UpdateOptionsScreen() {
