@@ -287,3 +287,8 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 *.cache
+*.cache
+GrapplingHook/GrapplingHook/GrapplingHook/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+GrapplingHook/GrapplingHook/GrapplingHook/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+GrapplingHook/GrapplingHook/GrapplingHook/obj/x86/Debug/GrapplingHook.csprojResolveAssemblyReference.cache
+GrapplingHook/GrapplingHook/GrapplingHookContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
