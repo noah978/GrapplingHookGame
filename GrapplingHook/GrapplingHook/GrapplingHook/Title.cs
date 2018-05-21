@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GrapplingHook
 {
@@ -13,6 +14,8 @@ namespace GrapplingHook
         Texture2D
             texTitleScreen,
             texButton;
+
+        SoundEffect soundSelect;
 
         SpriteFont titleFont;
 
@@ -40,7 +43,10 @@ namespace GrapplingHook
             foreach (Button b in TitleButtons)
             {
                 if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2) && mouse.LeftButton == ButtonState.Pressed)
+                {
+                    soundSelect.Play();
                     b.action.Invoke();
+                }
                 else if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2))
                     b.borderColor = Color.Gold;
                 else

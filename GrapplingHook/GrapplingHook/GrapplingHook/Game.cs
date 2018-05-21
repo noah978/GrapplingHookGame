@@ -35,6 +35,7 @@ namespace GrapplingHook
         MouseState mouseOld;
 
         int appleCount;
+        int totalAppleCount;
         List<Rectangle> windRs;
         int windTimer;
 
@@ -71,7 +72,12 @@ namespace GrapplingHook
 
             texPixel = new Texture2D(GraphicsDevice, 1, 1);
             texPixel.SetData(new[] { Color.White });
-            
+
+            //Audio
+            isSoundEffectsOn = true;
+            isMusicOn = true;
+
+            //Levels
             levelNames = Directory.GetFiles(Content.RootDirectory + @"\Levels\");
             Array.Sort(levelNames);
 
@@ -125,6 +131,8 @@ namespace GrapplingHook
             texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
             titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
             texButton = Content.Load<Texture2D>(@"Textures\" +@"Interface\" + "Button");
+            soundSelect = Content.Load<SoundEffect>(@"Audio\Sounds\" + "Select");
+            soundPickupApple = Content.Load<SoundEffect>(@"Audio\Sounds\Player\" + "Pickup_Apple");
         }
         
         protected override void UnloadContent() {}
@@ -137,15 +145,6 @@ namespace GrapplingHook
             keyboard = Keyboard.GetState();
             gamepad = GamePad.GetState(PlayerIndex.One);
             mouse = Mouse.GetState();
-
-            if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod)) {
-                level = (level + 1) % levelNames.Length;
-                ChangeLevel(level);
-            }
-            if (keyboard.IsKeyDown(Keys.OemComma) && keyboardOld.IsKeyUp(Keys.OemComma)) {
-                level = (level - 1) % levelNames.Length;
-                ChangeLevel(level);
-            }
 
             switch (state)
             {
@@ -160,10 +159,24 @@ namespace GrapplingHook
                 case GameState.Level:
                     if (keyboard.IsKeyDown(Keys.Escape))
                         state = GameState.Pause;
+
+                    if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod))
+                    {
+                        level = (level + 1) % levelNames.Length;
+                        ChangeLevel(level);
+                    }
+                    if (keyboard.IsKeyDown(Keys.OemComma) && keyboardOld.IsKeyUp(Keys.OemComma))
+                    {
+                        level = (level - 1) % levelNames.Length;
+                        ChangeLevel(level);
+                    }
+
                     UpdatePlayer();
                     UpdateHook();
                     UpdateEnemies();
                     UpdateWind();
+                    if (!IsActive)
+                        state = GameState.Pause;
                     break;
                 case GameState.Pause:
                     UpdatePauseScreen();
@@ -278,7 +291,7 @@ namespace GrapplingHook
 
         public void DrawGUI() {
             spriteBatch.Draw(texApple, new Vector2(12, 8), Color.White);
-            spriteBatch.DrawString(font, "x " + appleCount, new Vector2(28, 8), Color.White);
+            spriteBatch.DrawString(font, "x " + (appleCount + totalAppleCount), new Vector2(28, 8), Color.White);
         }
 
     }

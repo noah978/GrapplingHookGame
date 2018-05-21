@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 namespace GrapplingHook {
     partial class Game {
         List<Button> OptionsButtons;
-        Boolean isSoundEffectsOn = true, isMusicOn = true;
+        Boolean isSoundEffectsOn, isMusicOn;
         
         public void CreateOptionsScreen() {
             OptionsButtons = new List<Button>();
@@ -23,11 +23,17 @@ namespace GrapplingHook {
             solidRect = new Rectangle(solidRect.X, solidRect.Y + 64, solidRect.Width, solidRect.Height);
             OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = prevState; }));
 
+            solidRect = new Rectangle(solidRect.X - spacing, solidRect.Y, solidRect.Width, solidRect.Height);
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Main Menu", delegate () { state = Logic.GameState.Title; }));
+
         }
         public void UpdateOptionsScreen() {
             foreach (Button b in OptionsButtons) {
                 if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2) && mouse.LeftButton == ButtonState.Pressed && mouseOld.LeftButton == ButtonState.Released)
+                {
+                    soundSelect.Play();
                     b.action.Invoke();
+                }
                 else if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2))
                     b.borderColor = Color.Gold;
                 else

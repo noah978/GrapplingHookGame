@@ -55,7 +55,6 @@
     <Folder Include="Audio\Sounds\Enemies\Flyer\" />
     <Folder Include="Audio\Sounds\Enemies\Grounder\" />
     <Folder Include="Audio\Sounds\Enemies\Sneaker\" />
-    <Folder Include="Audio\Sounds\Player\" />
     <Folder Include="Textures\Characters\Boss\" />
     <Folder Include="Textures\Characters\Jess\" />
     <Folder Include="Textures\Characters\Matt\" />
@@ -252,6 +251,20 @@
       <Name>Wall</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Sounds\Player\Pickup_Apple.wav">
+      <Name>Pickup_Apple</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Sounds\Select.wav">
+      <Name>Select</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="Microsoft.Xna.GameStudio.ContentPipeline.targets" />

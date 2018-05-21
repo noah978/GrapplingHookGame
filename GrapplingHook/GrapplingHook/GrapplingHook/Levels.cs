@@ -43,6 +43,8 @@ namespace GrapplingHook {
         
         public void ChangeLevel(int id) {
             level = id;
+            totalAppleCount += appleCount;
+            appleCount = 0;
 
             if (level < LEVEL_TYPE_SHIFT)
                 levelType = LevelType.Ravine;
@@ -54,10 +56,8 @@ namespace GrapplingHook {
                 levelType = LevelType.Boss;
 
             tilemap = LoadTilemap(levelNames[id]);
-            ResetLevel();
             windDir = LoadWind(levelNames[id]);
-            if (windDir != Direction.None)
-                PreLoadWind(random);
+            ResetLevel();
         }
 
         public Tile[,] LoadTilemap(string path) {
@@ -99,7 +99,12 @@ namespace GrapplingHook {
             windRs.Clear();
             Sneakers.Clear();
             SneakerTimers.Clear();
+<<<<<<< HEAD
             //windDir = Direction.None;
+=======
+            if (windDir != Direction.None)
+                PreLoadWind(random);
+>>>>>>> master
 
             for (var j = 0; j < LEVEL_HEIGHT; j++)
                 for (var i = 0; i < LEVEL_WIDTH; i++)
