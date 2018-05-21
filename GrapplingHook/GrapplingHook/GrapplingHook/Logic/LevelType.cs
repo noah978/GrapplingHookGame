@@ -8,6 +8,7 @@ namespace GrapplingHook.Logic
     public enum LevelType
     {
         Ravine,
+        Transition,
         Tower,
         Boss
     }
