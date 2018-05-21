@@ -23,6 +23,9 @@ namespace GrapplingHook {
             solidRect = new Rectangle(solidRect.X, solidRect.Y + 64, solidRect.Width, solidRect.Height);
             OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Back", delegate () { state = prevState; }));
 
+            solidRect = new Rectangle(solidRect.X - spacing, solidRect.Y, solidRect.Width, solidRect.Height);
+            OptionsButtons.Add(new Button(solidRect, getBorderRect(solidRect), Color.LightGray, Color.Black, "Main Menu", delegate () { state = Logic.GameState.Title; }));
+
         }
         public void UpdateOptionsScreen() {
             foreach (Button b in OptionsButtons) {

@@ -146,15 +146,6 @@ namespace GrapplingHook
             gamepad = GamePad.GetState(PlayerIndex.One);
             mouse = Mouse.GetState();
 
-            if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod)) {
-                level = (level + 1) % levelNames.Length;
-                ChangeLevel(level);
-            }
-            if (keyboard.IsKeyDown(Keys.OemComma) && keyboardOld.IsKeyUp(Keys.OemComma)) {
-                level = (level - 1) % levelNames.Length;
-                ChangeLevel(level);
-            }
-
             switch (state)
             {
                 case GameState.Title:
@@ -168,6 +159,18 @@ namespace GrapplingHook
                 case GameState.Level:
                     if (keyboard.IsKeyDown(Keys.Escape))
                         state = GameState.Pause;
+
+                    if (keyboard.IsKeyDown(Keys.OemPeriod) && keyboardOld.IsKeyUp(Keys.OemPeriod))
+                    {
+                        level = (level + 1) % levelNames.Length;
+                        ChangeLevel(level);
+                    }
+                    if (keyboard.IsKeyDown(Keys.OemComma) && keyboardOld.IsKeyUp(Keys.OemComma))
+                    {
+                        level = (level - 1) % levelNames.Length;
+                        ChangeLevel(level);
+                    }
+
                     UpdatePlayer();
                     UpdateHook();
                     UpdateEnemies();
