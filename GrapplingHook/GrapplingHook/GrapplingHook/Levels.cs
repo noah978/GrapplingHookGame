@@ -43,6 +43,8 @@ namespace GrapplingHook {
         
         public void ChangeLevel(int id) {
             level = id;
+            totalAppleCount += appleCount;
+            appleCount = 0;
 
             if (level < LEVEL_TYPE_SHIFT)
                 levelType = LevelType.Ravine;

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 namespace GrapplingHook {
     partial class Game {
         List<Button> OptionsButtons;
-        Boolean isSoundEffectsOn = true, isMusicOn = true;
+        Boolean isSoundEffectsOn, isMusicOn;
         
         public void CreateOptionsScreen() {
             OptionsButtons = new List<Button>();
