@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using GrapplingHook.Logic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GrapplingHook {
     partial class Game {
@@ -135,6 +136,7 @@ namespace GrapplingHook {
                     if (player.WillIntersect(apple)) {
                         Apples.RemoveAt(i);
                         appleCount++;
+                        soundPickupApple.Play();
                         break;
                     }
                 }

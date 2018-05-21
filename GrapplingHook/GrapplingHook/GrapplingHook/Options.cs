@@ -27,7 +27,10 @@ namespace GrapplingHook {
         public void UpdateOptionsScreen() {
             foreach (Button b in OptionsButtons) {
                 if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2) && mouse.LeftButton == ButtonState.Pressed && mouseOld.LeftButton == ButtonState.Released)
+                {
+                    soundSelect.Play();
                     b.action.Invoke();
+                }
                 else if (b.solidRect.Contains(mouse.X / 2, mouse.Y / 2))
                     b.borderColor = Color.Gold;
                 else

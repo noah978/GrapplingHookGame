@@ -131,6 +131,8 @@ namespace GrapplingHook
             texSpectre = Content.Load<Texture2D>(@"Textures\" + @"Enemies\" + @"Sneaker\" + "Spectre");
             titleFont = Content.Load<SpriteFont>(@"Fonts\" + "Title");
             texButton = Content.Load<Texture2D>(@"Textures\" +@"Interface\" + "Button");
+            soundSelect = Content.Load<SoundEffect>(@"Audio\Sounds\" + "Select");
+            soundPickupApple = Content.Load<SoundEffect>(@"Audio\Sounds\Player\" + "Pickup_Apple");
         }
         
         protected override void UnloadContent() {}
