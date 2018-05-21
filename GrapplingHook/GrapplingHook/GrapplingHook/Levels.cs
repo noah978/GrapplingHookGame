@@ -46,6 +46,8 @@ namespace GrapplingHook {
 
             if (level < LEVEL_TYPE_SHIFT)
                 levelType = LevelType.Ravine;
+            else if (level == LEVEL_TYPE_SHIFT)
+                levelType = LevelType.Transition;
             else if (level < LEVEL_BOSS)
                 levelType = LevelType.Tower;
             else if (level == LEVEL_BOSS)
@@ -118,7 +120,7 @@ namespace GrapplingHook {
                             TilesOneWayPlatform.Add(new Hitbox(i * 16, j * 16, 16, 16));
                             break;
                         case Tile.Spike:
-                            TilesSpike.Add(new Hitbox(i * 16, j * 16, 16, 16));
+                            TilesSpike.Add(new Hitbox(i * 16, j * 16 + 8, 16, 8));
                             break;
                         case Tile.Apple:
                             Apples.Add(new Hitbox(i * 16 + 2, j * 16 + 2, 12, 12));
@@ -151,16 +153,16 @@ namespace GrapplingHook {
                             texture = texTileGoal;
                             break;
                         case Tile.Wall:
-                            texture = (levelType == LevelType.Ravine ? texTileWallRavine : texTileWallTower);
+                            texture = (levelType == LevelType.Ravine || (levelType == LevelType.Transition && j >= 9) ? texTileWallRavine : texTileWallTower);
                             break;
                         case Tile.NoGrapple:
-                            texture = (levelType == LevelType.Ravine ? texTileNoGrappleRavine : texTileNoGrappleTower);
+                            texture = (levelType == LevelType.Ravine || (levelType == LevelType.Transition && j >= 9) ? texTileNoGrappleRavine : texTileNoGrappleTower);
                             break;
                         case Tile.OneWayPlatform:
-                            texture = (levelType == LevelType.Ravine ? texTileOneWayPlatformRavine : texTileOneWayPlatformTower);
+                            texture = (levelType == LevelType.Ravine || (levelType == LevelType.Transition && j >= 9) ? texTileOneWayPlatformRavine : texTileOneWayPlatformTower);
                             break;
                         case Tile.Spike:
-                            texture = (levelType == LevelType.Ravine ? texTileSpikeRavine : texTileSpikeTower);
+                            texture = (levelType == LevelType.Ravine || (levelType == LevelType.Transition && j >= 9) ? texTileSpikeRavine : texTileSpikeTower);
                             break;
                     }
                     if (texture != null)
