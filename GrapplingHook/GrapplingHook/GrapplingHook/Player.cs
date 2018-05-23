@@ -82,27 +82,13 @@ namespace GrapplingHook {
                     if (newNextPositionRelative.Length() >= ropeLength)
                     {
                         newNextPositionRelative.Normalize();
-                        newNextPositionRelative.X *= (float)ropeLength;
-                        newNextPositionRelative.Y *= (float)ropeLength;
+                        newNextPositionRelative *= (float)ropeLength;
                         Vector2 newNextPosition = hook.Center + newNextPositionRelative;
                         float velocityMagnitude = player.velocity.Length();
                         player.velocity = newNextPosition - player.Center;
                         player.velocity.Normalize();
                         player.velocity *= velocityMagnitude;
                     }
-                    /*if(nextRopeVector.Length() >= ropeLength)
-                    {
-                        Vector2 ropeVector = player.Center - hook.Center;
-                        double theta = Math.Atan2(ropeVector.Y, ropeVector.X);
-                        double forceMagnitude = Math.Sin(theta) * GRAVITY;
-                        double angle = Math.Atan2(ropeVector.Y, ropeVector.X);
-                        if (angle < Math.PI / 2 || angle >= Math.PI * 3 / 2)
-                            angle += Math.PI / 2;
-                        else
-                            angle -= Math.PI / 2;
-                        int sub = (Math.Atan2(player.velocity.Y, player.velocity.X) < angle) ? -1 : 1;
-                        player.velocity = (new Vector2((float)(Math.Cos(angle)), (float)(Math.Sin(angle)))) * (float)(forceMagnitude + (player.velocity.Length() * sub));
-                    }*/
                 }
 
                 //Change rope length
