@@ -180,6 +180,7 @@ namespace GrapplingHook
                     break;
                 case GameState.Pause:
                     UpdatePauseScreen();
+                    UpdateWind();
                     break;
                 case GameState.Cutscene:
                     
